@@ -1,0 +1,7 @@
+C:\Users\Vincent\source\repos\Tutorial\Tutorial\bin\Debug\Tutorial.exe.config
+C:\Users\Vincent\source\repos\Tutorial\Tutorial\bin\Debug\Tutorial.exe
+C:\Users\Vincent\source\repos\Tutorial\Tutorial\bin\Debug\Tutorial.pdb
+C:\Users\Vincent\source\repos\Tutorial\Tutorial\obj\Debug\Tutorial.csproj.AssemblyReference.cache
+C:\Users\Vincent\source\repos\Tutorial\Tutorial\obj\Debug\Tutorial.csproj.CoreCompileInputs.cache
+C:\Users\Vincent\source\repos\Tutorial\Tutorial\obj\Debug\Tutorial.exe
+C:\Users\Vincent\source\repos\Tutorial\Tutorial\obj\Debug\Tutorial.pdb

@@ -1,0 +1,10 @@
+D:\jun_windows_programming\PowerPoint\PPTv1\PPTv1\bin\Debug\PPTv1.exe.config
+D:\jun_windows_programming\PowerPoint\PPTv1\PPTv1\bin\Debug\PPTv1.exe
+D:\jun_windows_programming\PowerPoint\PPTv1\PPTv1\bin\Debug\PPTv1.pdb
+D:\jun_windows_programming\PowerPoint\PPTv1\PPTv1\obj\Debug\PowerPoint.csproj.AssemblyReference.cache
+D:\jun_windows_programming\PowerPoint\PPTv1\PPTv1\obj\Debug\PowerPoint.Form1.resources
+D:\jun_windows_programming\PowerPoint\PPTv1\PPTv1\obj\Debug\PPTv1.Properties.Resources.resources
+D:\jun_windows_programming\PowerPoint\PPTv1\PPTv1\obj\Debug\PowerPoint.csproj.GenerateResource.cache
+D:\jun_windows_programming\PowerPoint\PPTv1\PPTv1\obj\Debug\PowerPoint.csproj.CoreCompileInputs.cache
+D:\jun_windows_programming\PowerPoint\PPTv1\PPTv1\obj\Debug\PPTv1.exe
+D:\jun_windows_programming\PowerPoint\PPTv1\PPTv1\obj\Debug\PPTv1.pdb

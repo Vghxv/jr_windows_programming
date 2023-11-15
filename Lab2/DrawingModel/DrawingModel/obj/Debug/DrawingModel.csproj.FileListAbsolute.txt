@@ -1,0 +1,9 @@
+C:\Users\Vincent\source\repos\DrawingModel\DrawingModel\bin\Debug\DrawingModel.exe.config
+C:\Users\Vincent\source\repos\DrawingModel\DrawingModel\bin\Debug\DrawingModel.exe
+C:\Users\Vincent\source\repos\DrawingModel\DrawingModel\bin\Debug\DrawingModel.pdb
+C:\Users\Vincent\source\repos\DrawingModel\DrawingModel\obj\Debug\DrawingModel.csproj.AssemblyReference.cache
+C:\Users\Vincent\source\repos\DrawingModel\DrawingModel\obj\Debug\DrawingModel.Properties.Resources.resources
+C:\Users\Vincent\source\repos\DrawingModel\DrawingModel\obj\Debug\DrawingModel.csproj.GenerateResource.cache
+C:\Users\Vincent\source\repos\DrawingModel\DrawingModel\obj\Debug\DrawingModel.csproj.CoreCompileInputs.cache
+C:\Users\Vincent\source\repos\DrawingModel\DrawingModel\obj\Debug\DrawingModel.exe
+C:\Users\Vincent\source\repos\DrawingModel\DrawingModel\obj\Debug\DrawingModel.pdb

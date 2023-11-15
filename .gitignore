@@ -1,0 +1,6 @@
+*.vsix
+*.doc
+*.smell
+*.Cache
+*.vs/
+*.log

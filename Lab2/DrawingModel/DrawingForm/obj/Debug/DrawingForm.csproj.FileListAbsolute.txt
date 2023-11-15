@@ -1,0 +1,9 @@
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\bin\Debug\DrawingForm.exe.config
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\bin\Debug\DrawingForm.exe
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\bin\Debug\DrawingForm.pdb
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.Form1.resources
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.Properties.Resources.resources
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.csproj.GenerateResource.cache
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.csproj.CoreCompileInputs.cache
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.exe
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.pdb
