@@ -70,7 +70,8 @@ namespace WindowPowerPoint
         // handle key down
         public void KeyPressed(Keys keyCode)
         {
-            if (keyCode == Keys.Delete && _isPressed)
+            Console.WriteLine(keyCode);
+            if (keyCode == Keys.Delete)
             {
                 foreach (Shape shape in _model.ShapesManager.ShapeList)
                 {

@@ -219,5 +219,11 @@ namespace DrawingForm
         {
             _model.RemoveShape(bindingManagerBase.Position);
         }
+
+        // asd
+        public void HandleKeyDown(Keys keys)
+        {
+            _model.HandleKeyDown(keys);
+        }
     }
 }

@@ -26,7 +26,6 @@ namespace DrawingModel
         // asd
         public void MouseDown(float number1, float number2)
         {
-               
         }
 
         // asd

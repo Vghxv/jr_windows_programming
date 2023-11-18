@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Forms;
+
 namespace DrawingModel
 {
     public class Model
@@ -140,6 +142,10 @@ namespace DrawingModel
         public void AddHintToShapes()
         {
             _shapes.AddShape(_hint);
+        }
+        public void HandleKeyDown(Keys keys)
+        {
+            _modelState.KeyPressed(keys);
         }
     }
 }

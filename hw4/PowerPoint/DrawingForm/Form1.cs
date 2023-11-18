@@ -48,6 +48,8 @@ namespace DrawingForm
             _toolStripButtonSelect.DataBindings.Add(Constant.CHECKED, _presentationModel, Constant.IS_SELECT_ENABLE);
             _modelInfo.DataSource = _model.ShapesManager.ShapeList;
             _brief = new Bitmap(_panel.Width, _panel.Height);
+            KeyPreview = true;
+            KeyDown += HandleKeyDown; 
         }
 
         //sd
@@ -140,6 +142,12 @@ namespace DrawingForm
         private void ToolStripButtonSelectClick(object sender, EventArgs e)
         {
             _presentationModel.GoToolStripButtonSelect(sender, e);
+        }
+
+        // asd
+        private void HandleKeyDown(object sender, KeyEventArgs e)
+        {
+            _presentationModel.HandleKeyDown(e.KeyCode);
         }
     }
 }
