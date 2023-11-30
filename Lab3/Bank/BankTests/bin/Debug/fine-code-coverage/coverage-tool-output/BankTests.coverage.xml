@@ -2,13 +2,13 @@
 <CoverageSession xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="4.7.922.0">
   <Summary numSequencePoints="50" visitedSequencePoints="48" numBranchPoints="11" visitedBranchPoints="10" sequenceCoverage="96" branchCoverage="90.91" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" maxCrapScore="2" minCrapScore="1" visitedClasses="2" numClasses="3" visitedMethods="8" numMethods="9" />
   <Modules>
-    <Module hash="B1-75-95-94-63-10-AC-45-31-3F-B8-A5-A8-21-B6-BE-C5-2E-14-FF">
+    <Module hash="87-38-2C-93-7C-C8-DB-F5-BB-5C-3A-F3-31-81-0A-CE-09-44-9F-B4">
       <Summary numSequencePoints="22" visitedSequencePoints="22" numBranchPoints="4" visitedBranchPoints="4" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="2" minCrapScore="1" visitedClasses="1" numClasses="1" visitedMethods="4" numMethods="4" />
-      <ModulePath>D:\jun_windows_programming\Bank\BankTests\bin\Debug\fine-code-coverage\build-output\BankTests.dll</ModulePath>
-      <ModuleTime>2023-11-02T06:28:43.6255381Z</ModuleTime>
+      <ModulePath>D:\jun_windows_programming\Lab3\Bank\BankTests\bin\Debug\fine-code-coverage\build-output\BankTests.dll</ModulePath>
+      <ModuleTime>2023-11-18T05:44:32.921886Z</ModuleTime>
       <ModuleName>BankTests</ModuleName>
       <Files>
-        <File uid="1" fullPath="D:\jun_windows_programming\Bank\BankTests\AccountTests.cs" />
+        <File uid="1" fullPath="D:\jun_windows_programming\Lab3\Bank\BankTests\AccountTests.cs" />
       </Files>
       <Classes>
         <Class>
@@ -89,14 +89,14 @@
         </Class>
       </Classes>
     </Module>
-    <Module hash="06-60-77-52-59-20-83-C3-16-6A-37-A8-D8-EF-39-B5-6F-3B-47-97">
+    <Module hash="5E-36-DF-99-CD-B4-3F-A7-2A-C6-2B-83-FF-05-5A-70-16-BD-96-D3">
       <Summary numSequencePoints="28" visitedSequencePoints="26" numBranchPoints="7" visitedBranchPoints="6" sequenceCoverage="92.86" branchCoverage="85.71" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" maxCrapScore="2" minCrapScore="1" visitedClasses="1" numClasses="2" visitedMethods="4" numMethods="5" />
-      <ModulePath>D:\jun_windows_programming\Bank\BankTests\bin\Debug\fine-code-coverage\build-output\Bank.exe</ModulePath>
-      <ModuleTime>2023-11-02T06:28:43.5197095Z</ModuleTime>
+      <ModulePath>D:\jun_windows_programming\Lab3\Bank\BankTests\bin\Debug\fine-code-coverage\build-output\Bank.exe</ModulePath>
+      <ModuleTime>2023-11-18T05:44:32.5717412Z</ModuleTime>
       <ModuleName>Bank</ModuleName>
       <Files>
-        <File uid="3" fullPath="D:\jun_windows_programming\Bank\Bank\Account.cs" />
-        <File uid="4" fullPath="D:\jun_windows_programming\Bank\Bank\Program.cs" />
+        <File uid="3" fullPath="D:\jun_windows_programming\Lab3\Bank\Bank\Account.cs" />
+        <File uid="4" fullPath="D:\jun_windows_programming\Lab3\Bank\Bank\Program.cs" />
       </Files>
       <Classes>
         <Class>

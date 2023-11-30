@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage line-rate="0.962264150943396" branch-rate="1" lines-covered="51" lines-valid="53" branches-covered="2" branches-valid="2" complexity="9" version="0" timestamp="1698935549">
+<coverage line-rate="0.962264150943396" branch-rate="1" lines-covered="51" lines-valid="53" branches-covered="2" branches-valid="2" complexity="9" version="0" timestamp="1700315080">
   <sources />
   <packages>
     <package name="Bank" line-rate="0.92" branch-rate="1" complexity="5">
       <classes>
-        <class name="Account" filename="D:\jun_windows_programming\Bank\Bank\Account.cs" line-rate="1" branch-rate="1" complexity="NaN">
+        <class name="Account" filename="D:\jun_windows_programming\Lab3\Bank\Bank\Account.cs" line-rate="1" branch-rate="1" complexity="NaN">
           <methods>
             <method name="Balance" signature="()" line-rate="1" branch-rate="1" complexity="NaN">
               <lines>
@@ -73,7 +73,7 @@
             <line number="41" hits="2" branch="false" />
           </lines>
         </class>
-        <class name="Bank.Program" filename="D:\jun_windows_programming\Bank\Bank\Program.cs" line-rate="0" branch-rate="1" complexity="NaN">
+        <class name="Bank.Program" filename="D:\jun_windows_programming\Lab3\Bank\Bank\Program.cs" line-rate="0" branch-rate="1" complexity="NaN">
           <methods>
             <method name="Main" signature="(System.String[])" line-rate="0" branch-rate="1" complexity="NaN">
               <lines>
@@ -91,7 +91,7 @@
     </package>
     <package name="BankTests" line-rate="1" branch-rate="1" complexity="4">
       <classes>
-        <class name="AccountTests" filename="D:\jun_windows_programming\Bank\BankTests\AccountTests.cs" line-rate="1" branch-rate="1" complexity="4">
+        <class name="AccountTests" filename="D:\jun_windows_programming\Lab3\Bank\BankTests\AccountTests.cs" line-rate="1" branch-rate="1" complexity="4">
           <methods>
             <method name="Initialize" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>

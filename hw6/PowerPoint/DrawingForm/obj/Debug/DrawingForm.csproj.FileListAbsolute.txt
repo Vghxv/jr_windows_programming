@@ -1,0 +1,49 @@
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\bin\Debug\DrawingForm.exe.config
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\bin\Debug\DrawingForm.exe
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\bin\Debug\DrawingForm.pdb
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.Form1.resources
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.Properties.Resources.resources
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.csproj.GenerateResource.cache
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.csproj.CoreCompileInputs.cache
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.exe
+C:\Users\Vincent\source\repos\DrawingModel\DrawingForm\obj\Debug\DrawingForm.pdb
+D:\jun_windows_programming\app\DrawingForm\bin\Debug\DrawingForm.exe.config
+D:\jun_windows_programming\app\DrawingForm\bin\Debug\DrawingForm.exe
+D:\jun_windows_programming\app\DrawingForm\bin\Debug\DrawingForm.pdb
+D:\jun_windows_programming\app\DrawingForm\obj\Debug\DrawingForm.csproj.AssemblyReference.cache
+D:\jun_windows_programming\app\DrawingForm\obj\Debug\DrawingForm.Form1.resources
+D:\jun_windows_programming\app\DrawingForm\obj\Debug\DrawingForm.Properties.Resources.resources
+D:\jun_windows_programming\app\DrawingForm\obj\Debug\DrawingForm.csproj.GenerateResource.cache
+D:\jun_windows_programming\app\DrawingForm\obj\Debug\DrawingForm.csproj.CoreCompileInputs.cache
+D:\jun_windows_programming\app\DrawingForm\obj\Debug\DrawingForm.exe
+D:\jun_windows_programming\app\DrawingForm\obj\Debug\DrawingForm.pdb
+C:\Users\USER\OneDrive - 國立臺北科技大學\app\DrawingForm\bin\Debug\DrawingForm.exe.config
+C:\Users\USER\OneDrive - 國立臺北科技大學\app\DrawingForm\bin\Debug\DrawingForm.exe
+C:\Users\USER\OneDrive - 國立臺北科技大學\app\DrawingForm\bin\Debug\DrawingForm.pdb
+C:\Users\USER\OneDrive - 國立臺北科技大學\app\DrawingForm\obj\Debug\DrawingForm.csproj.AssemblyReference.cache
+C:\Users\USER\OneDrive - 國立臺北科技大學\app\DrawingForm\obj\Debug\DrawingForm.Form1.resources
+C:\Users\USER\OneDrive - 國立臺北科技大學\app\DrawingForm\obj\Debug\DrawingForm.Properties.Resources.resources
+C:\Users\USER\OneDrive - 國立臺北科技大學\app\DrawingForm\obj\Debug\DrawingForm.csproj.GenerateResource.cache
+C:\Users\USER\OneDrive - 國立臺北科技大學\app\DrawingForm\obj\Debug\DrawingForm.csproj.CoreCompileInputs.cache
+C:\Users\USER\OneDrive - 國立臺北科技大學\app\DrawingForm\obj\Debug\DrawingForm.exe
+C:\Users\USER\OneDrive - 國立臺北科技大學\app\DrawingForm\obj\Debug\DrawingForm.pdb
+D:\jun_windows_programming\hw4\PowerPoint\DrawingForm\obj\Debug\DrawingForm.csproj.AssemblyReference.cache
+D:\jun_windows_programming\hw4\PowerPoint\DrawingForm\obj\Debug\DrawingForm.Form1.resources
+D:\jun_windows_programming\hw4\PowerPoint\DrawingForm\obj\Debug\DrawingForm.Properties.Resources.resources
+D:\jun_windows_programming\hw4\PowerPoint\DrawingForm\obj\Debug\DrawingForm.csproj.GenerateResource.cache
+D:\jun_windows_programming\hw4\PowerPoint\DrawingForm\obj\Debug\DrawingForm.csproj.CoreCompileInputs.cache
+D:\jun_windows_programming\hw4\PowerPoint\DrawingForm\obj\Debug\DrawingForm.exe
+D:\jun_windows_programming\hw4\PowerPoint\DrawingForm\obj\Debug\DrawingForm.pdb
+D:\jun_windows_programming\hw4\PowerPoint\DrawingForm\bin\Debug\DrawingForm.exe.config
+D:\jun_windows_programming\hw4\PowerPoint\DrawingForm\bin\Debug\DrawingForm.exe
+D:\jun_windows_programming\hw4\PowerPoint\DrawingForm\bin\Debug\DrawingForm.pdb
+D:\jun_windows_programming\hw5\PowerPoint\DrawingForm\bin\Debug\DrawingForm.exe.config
+D:\jun_windows_programming\hw5\PowerPoint\DrawingForm\bin\Debug\DrawingForm.exe
+D:\jun_windows_programming\hw5\PowerPoint\DrawingForm\bin\Debug\DrawingForm.pdb
+D:\jun_windows_programming\hw5\PowerPoint\DrawingForm\obj\Debug\DrawingForm.csproj.AssemblyReference.cache
+D:\jun_windows_programming\hw5\PowerPoint\DrawingForm\obj\Debug\DrawingForm.Form1.resources
+D:\jun_windows_programming\hw5\PowerPoint\DrawingForm\obj\Debug\DrawingForm.Properties.Resources.resources
+D:\jun_windows_programming\hw5\PowerPoint\DrawingForm\obj\Debug\DrawingForm.csproj.GenerateResource.cache
+D:\jun_windows_programming\hw5\PowerPoint\DrawingForm\obj\Debug\DrawingForm.csproj.CoreCompileInputs.cache
+D:\jun_windows_programming\hw5\PowerPoint\DrawingForm\obj\Debug\DrawingForm.exe
+D:\jun_windows_programming\hw5\PowerPoint\DrawingForm\obj\Debug\DrawingForm.pdb

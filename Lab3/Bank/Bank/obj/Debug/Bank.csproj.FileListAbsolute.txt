@@ -5,3 +5,10 @@ D:\jun_windows_programming\Bank\Bank\obj\Debug\Bank.csproj.AssemblyReference.cac
 D:\jun_windows_programming\Bank\Bank\obj\Debug\Bank.csproj.CoreCompileInputs.cache
 D:\jun_windows_programming\Bank\Bank\obj\Debug\Bank.exe
 D:\jun_windows_programming\Bank\Bank\obj\Debug\Bank.pdb
+D:\jun_windows_programming\Lab3\Bank\Bank\bin\Debug\Bank.exe.config
+D:\jun_windows_programming\Lab3\Bank\Bank\bin\Debug\Bank.exe
+D:\jun_windows_programming\Lab3\Bank\Bank\bin\Debug\Bank.pdb
+D:\jun_windows_programming\Lab3\Bank\Bank\obj\Debug\Bank.csproj.AssemblyReference.cache
+D:\jun_windows_programming\Lab3\Bank\Bank\obj\Debug\Bank.csproj.CoreCompileInputs.cache
+D:\jun_windows_programming\Lab3\Bank\Bank\obj\Debug\Bank.exe
+D:\jun_windows_programming\Lab3\Bank\Bank\obj\Debug\Bank.pdb
