@@ -1,377 +1,375 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DrawingModel;
-using System;
 using System.Windows.Forms;
-using System.ComponentModel;
 using System.Drawing;
+using Moq;
 
 namespace DrawingModel.Tests
 {
     [TestClass]
     public class FormPresentationModelTests
     {
+        Size _size;
+        Mock<Model> _model;
+        FormPresentationModel _presentationModel;
+        PrivateObject _privateObject;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            _size = new Size(1600, 900);
+            _model = new Mock<Model>();
+            _presentationModel = new FormPresentationModel(_model.Object);
+            _privateObject = new PrivateObject(_presentationModel);
+        }
+        [TestMethod]
+        public void BaseTest()
+        {
+            Assert.IsNotNull(_presentationModel.Model);
+        }
+
         [TestMethod]
         public void ConstructorTest()
         {
-            // Arrange
-            Model model = new Model();
-
-            // Act
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
-
-            // Assert
-            Assert.IsNotNull(presentationModel);
-            Assert.AreEqual(model, presentationModel.Model);
+            Assert.IsNotNull(_presentationModel);
         }
 
         [TestMethod]
         public void IsDrawingPropertyTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
-
-            // Act
-            presentationModel.IsLineEnable = true;
-
-            // Assert
-            Assert.IsTrue(presentationModel.IsDrawing, "IsDrawing should be true when IsLineEnable is true.");
+            _presentationModel.IsLineEnable = true;
+            Assert.IsTrue(_presentationModel.IsLineEnable, "IsDrawing should be true when IsLineEnable is true.");
         }
 
         [TestMethod]
         public void NotifyAllPropertiesTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
             bool propertyChangedCalled = false;
-            presentationModel.PropertyChanged += (sender, args) => propertyChangedCalled = true;
-
-            // Act
-            presentationModel.NotifyAllProperties();
-
-            // Assert
+            _presentationModel.PropertyChanged += (sender, args) => propertyChangedCalled = true;
+            _privateObject.Invoke("NotifyAllProperties");
             Assert.IsTrue(propertyChangedCalled, "PropertyChanged event should be triggered.");
         }
 
         [TestMethod]
         public void HandleCanvasReleasedTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
-
-            // Act
-            presentationModel.IsLineEnable = true;
-            presentationModel.HandleCanvasReleased(0, 0);
-
-            // Assert
-            Assert.IsFalse(presentationModel.IsLineEnable);
-            Assert.IsFalse(presentationModel.IsRectangleEnable);
-            Assert.IsFalse(presentationModel.IsEllipseEnable);
-            Assert.IsTrue(presentationModel.IsIdleEnable);
-
-            // Act
-            presentationModel.HandleCanvasReleased(0, 0);
-
-            // Assert
-            Assert.IsFalse(presentationModel.IsLineEnable);
-            Assert.IsFalse(presentationModel.IsRectangleEnable);
-            Assert.IsFalse(presentationModel.IsEllipseEnable);
-            Assert.IsTrue(presentationModel.IsIdleEnable);
+            _presentationModel.IsLineEnable = true;
+            _presentationModel.HandleCanvasReleased(0, 0);
+            Assert.IsFalse(_presentationModel.IsLineEnable);
+            Assert.IsFalse(_presentationModel.IsRectangleEnable);
+            Assert.IsFalse(_presentationModel.IsEllipseEnable);
+            Assert.IsTrue(_presentationModel.IsIdleEnable);
+            _presentationModel.HandleCanvasReleased(0, 0);
+            Assert.IsFalse(_presentationModel.IsLineEnable);
+            Assert.IsFalse(_presentationModel.IsRectangleEnable);
+            Assert.IsFalse(_presentationModel.IsEllipseEnable);
+            Assert.IsTrue(_presentationModel.IsIdleEnable);
         }
 
         [TestMethod]
         public void PressAddShapeButtonTest()
         {
-            // Arrange
             Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
+            _presentationModel = new FormPresentationModel(model);
             ComboBox shapeOption = new ComboBox();
             shapeOption.Text = Constant.LINE_CHINESE;
-
-            // Act
-            presentationModel.ProcessAddShapeButton(null, EventArgs.Empty, shapeOption);
-
-            // Assert
-            Assert.AreEqual(1, model.Shapes.ShapeList.Count); // Assuming adding a shape increases the shape count by 1
+            _presentationModel.ProcessAddShapeButton(shapeOption, _size);
+            Assert.AreEqual(1, model.Shapes.ShapeList.Count);
         }
 
         [TestMethod]
         public void PressLineButtonTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
-
-            // Act
-            presentationModel.ProcessLineBotton(null, EventArgs.Empty);
-
-            // Assert
-            Assert.IsTrue(presentationModel.IsLineEnable);
-            Assert.IsFalse(presentationModel.IsRectangleEnable);
-            Assert.IsFalse(presentationModel.IsEllipseEnable);
-            Assert.IsFalse(presentationModel.IsIdleEnable);
+            _presentationModel.ProcessLineButton();
+            Assert.IsTrue(_presentationModel.IsLineEnable);
+            Assert.IsFalse(_presentationModel   .IsRectangleEnable);
+            Assert.IsFalse(_presentationModel.IsEllipseEnable);
+            Assert.IsFalse(_presentationModel.IsIdleEnable);
         }
 
         [TestMethod]
         public void PressRectangleButtonTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
-
-            // Act
-            presentationModel.ProcessRectangleButton(null, EventArgs.Empty);
-
-            // Assert
-            Assert.IsFalse(presentationModel.IsLineEnable);
-            Assert.IsTrue(presentationModel.IsRectangleEnable);
-            Assert.IsFalse(presentationModel.IsEllipseEnable);
-            Assert.IsFalse(presentationModel.IsIdleEnable);
+            _presentationModel.ProcessRectangleButton();
+            Assert.IsFalse(_presentationModel.IsLineEnable);
+            Assert.IsTrue(_presentationModel.IsRectangleEnable);
+            Assert.IsFalse(_presentationModel.IsEllipseEnable);
+            Assert.IsFalse(_presentationModel.IsIdleEnable);
         }
 
         [TestMethod]
-        public void PressEllispeButtonTest()
+        public void PressEllipseButtonTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
-
-            // Act
-            presentationModel.ProcessEllispeButton(null, EventArgs.Empty);
-
-            // Assert
-            Assert.IsFalse(presentationModel.IsLineEnable);
-            Assert.IsFalse(presentationModel.IsRectangleEnable);
-            Assert.IsTrue(presentationModel.IsEllipseEnable);
-            Assert.IsFalse(presentationModel.IsIdleEnable);
+            _presentationModel.ProcessEllipseButton();
+            Assert.IsFalse(_presentationModel.IsLineEnable);
+            Assert.IsFalse(_presentationModel.IsRectangleEnable);
+            Assert.IsTrue(_presentationModel.IsEllipseEnable);
+            Assert.IsFalse(_presentationModel.IsIdleEnable);
         }
 
         [TestMethod]
         public void PressCursorButtonTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
-
-            // Act
-            presentationModel.ProcessCursorButton(null, EventArgs.Empty);
-
-            // Assert
-            Assert.IsFalse(presentationModel.IsLineEnable);
-            Assert.IsFalse(presentationModel.IsRectangleEnable);
-            Assert.IsFalse(presentationModel.IsEllipseEnable);
-            Assert.IsTrue(presentationModel.IsIdleEnable);
+            _presentationModel.ProcessCursorButton();
+            Assert.IsFalse(_presentationModel.IsLineEnable);
+            Assert.IsFalse(_presentationModel.IsRectangleEnable);
+            Assert.IsFalse(_presentationModel.IsEllipseEnable);
+            Assert.IsTrue(_presentationModel.IsIdleEnable);
         }
 
         [TestMethod]
         public void HandleKeyDownTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
-
-            // Act
-            presentationModel.HandleKeyDown(Keys.A);
-
-            //
+            _presentationModel.HandleKeyDown(Keys.A);
+            _model.Verify(m => m.HandleKeyDown(Keys.A), Times.Once);
         }
+
         [TestMethod]
         public void SetPanelTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
             DoubleBufferedPanel panel = new DoubleBufferedPanel();
-
-            // Act
-            presentationModel.Panel = panel;
-
-            // Assert
-            Assert.AreEqual(panel, presentationModel.Panel);
+            _presentationModel.DoubleBufferPanel = panel;
+            Assert.IsNotNull(_presentationModel.DoubleBufferPanel);
         }
 
         [TestMethod]
         public void HandleStateChanged_WhenIsDrawing_CursorIsCross()
         {
-            // Arrange
             Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
+            _presentationModel = new FormPresentationModel(model);
             DoubleBufferedPanel panel = new DoubleBufferedPanel();
-            presentationModel.Panel = panel;
-            model.CurrentState = new DrawingState(model);
-
-            // Act
-            presentationModel.HandleStateChanged();
-
-            // Assert
+            _presentationModel.DoubleBufferPanel = panel;
+            model.CurrentState = new DrawingState(model, new Ellipse());
+            _presentationModel.HandleStateChanged();
             Assert.AreEqual(Cursors.Cross, panel.Cursor);
-
-            // Act
             model.IsCloseToAdjust = true;
-            presentationModel.HandleStateChanged();
-
-            // Assert
+            _presentationModel.HandleStateChanged();
             Assert.AreEqual(Cursors.SizeNWSE, panel.Cursor);
         }
 
         [TestMethod]
         public void HandleStateChanged_WhenNotDrawing_CursorIsDefault()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
             DoubleBufferedPanel panel = new DoubleBufferedPanel();
-            presentationModel.Panel = panel;
-            presentationModel.IsLineEnable = false;
-            presentationModel.IsRectangleEnable = false;
-            presentationModel.IsEllipseEnable = false;
-
-            // Act
-            presentationModel.HandleStateChanged();
-
-            // Assert
+            _presentationModel.DoubleBufferPanel = panel;
+            _presentationModel.IsLineEnable = false;
+            _presentationModel.IsRectangleEnable = false;
+            _presentationModel.IsEllipseEnable = false;
+            _presentationModel.HandleStateChanged();
             Assert.AreEqual(Cursors.Default, panel.Cursor);
         }
 
         [TestMethod]
         public void DrawTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
             DoubleBufferedPanel panel = new DoubleBufferedPanel();
-            presentationModel.Panel = panel;
+            _presentationModel.DoubleBufferPanel = panel;
             Bitmap bitmap = new Bitmap(100, 100);
             Graphics graphics = Graphics.FromImage(bitmap);
-            
-            // Act
-            presentationModel.Draw(graphics);
-
-            // Assert
-            // Add assertions based on the expected behavior of drawing on the graphics object.
+            _presentationModel.Draw(graphics);
         }
 
         [TestMethod]
         public void HandleCanvasPressedTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
             float number1 = 10.0f;
             float number2 = 20.0f;
+            _presentationModel.HandleCanvasPressed(number1, number2);
+            _model.Verify(m=>m.HandleCanvasPressed(number1, number2));
 
-            // Act
-            presentationModel.HandleCanvasPressed(number1, number2);
-
-            // Assert
-            // Add assertions based on the expected behavior when canvas is pressed.
         }
 
         [TestMethod]
         public void HandleCanvasMovedTest()
         {
-            // Arrange
-            Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
             float number1 = 10.0f;
             float number2 = 20.0f;
-            // Act
-            presentationModel.HandleCanvasMoved(number1, number2);
-            // Assert
+            _presentationModel.HandleCanvasMoved(number1, number2);
+            _model.Verify(m => m.HandleCanvasMoved(number1, number2));
+
         }
 
         [TestMethod]
         public void GetShapeNameToAdd_LineChinese_ReturnsCorrectName()
         {
-            // Arrange
-            FormPresentationModel presentationModel = new FormPresentationModel(new Model());
             string shapeName = Constant.LINE_CHINESE;
-
-            // Act
-            string result = presentationModel.GetShapeNameToAdd(shapeName);
-
-            // Assert
+            string result = _presentationModel.GetShapeNameToAdd(shapeName);
             Assert.AreEqual(Constant.ASSEMBLY + Constant.LINE, result);
         }
 
         [TestMethod]
         public void GetShapeNameToAdd_RectangleChinese_ReturnsCorrectName()
         {
-            // Arrange
-            FormPresentationModel presentationModel = new FormPresentationModel(new Model());
             string shapeName = Constant.RECTANGLE_CHINESE;
-
-            // Act
-            string result = presentationModel.GetShapeNameToAdd(shapeName);
-
-            // Assert
+            string result = _presentationModel.GetShapeNameToAdd(shapeName);
             Assert.AreEqual(Constant.ASSEMBLY + Constant.RECTANGLE, result);
         }
 
         [TestMethod]
         public void GetShapeNameToAdd_EllipseChinese_ReturnsCorrectName()
         {
-            // Arrange
-            FormPresentationModel presentationModel = new FormPresentationModel(new Model());
             string shapeName = Constant.ELLIPSE_CHINESE;
-
-            // Act
-            string result = presentationModel.GetShapeNameToAdd(shapeName);
-
-            // Assert
+            string result = _presentationModel.GetShapeNameToAdd(shapeName);
             Assert.AreEqual(Constant.ASSEMBLY + Constant.ELLIPSE, result);
         }
 
         [TestMethod]
         public void GetShapeNameToAdd_InvalidShapeName_ReturnsEmptyString()
         {
-            // Arrange
-            FormPresentationModel presentationModel = new FormPresentationModel(new Model());
             string shapeName = "InvalidShape";
-
-            // Act
-            string result = presentationModel.GetShapeNameToAdd(shapeName);
-
-            // Assert
+            string result = _presentationModel.GetShapeNameToAdd(shapeName);
             Assert.AreEqual(string.Empty, result);
         }
 
         [TestMethod]
         public void PressAddShapeButton_WithValidShapeName_AddsShapeAndNotifiesModelChanged()
         {
-            // Arrange
             Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
+            _presentationModel = new FormPresentationModel(model);
             var shapeOption = new ComboBox { Text = Constant.LINE_CHINESE };
-
-            // Act
-            presentationModel.ProcessAddShapeButton(null, EventArgs.Empty, shapeOption);
-
-            // Assert
-            // Verify that the shape is added
+            _presentationModel.ProcessAddShapeButton(shapeOption, _size);
             Assert.AreEqual(1, model.Shapes.ShapeList.Count);
-
-            // Verify that the shape name is correct
-            Assert.AreEqual(Constant.LINE_CHINESE, model.Shapes.ShapeList[0].NameChinese);
-
         }
 
         [TestMethod]
         public void PressAddShapeButton_WithInvalidShapeName_DoesNotAddShapeOrNotifyModelChanged()
         {
-            // Arrange
             Model model = new Model();
-            FormPresentationModel presentationModel = new FormPresentationModel(model);
+            _presentationModel = new FormPresentationModel(model);
             var shapeOption = new ComboBox { Text = "InvalidShape" };
+            _presentationModel.ProcessAddShapeButton(shapeOption, _size);
 
-            // Act
-            presentationModel.ProcessAddShapeButton(null, EventArgs.Empty, shapeOption);
-
-            // Assert
-            // Verify that no shape is added
             Assert.AreEqual(0, model.Shapes.ShapeList.Count);
         }
+
+        [TestMethod]
+        public void PressAddShapeButton_WithValidShapeNameAndInvalidSize_DoesNotAddShapeOrNotifyModelChanged()
+        {
+            Model model = new Model();
+            _presentationModel = new FormPresentationModel(model);
+            var shapeOption = new ComboBox { Text = Constant.LINE_CHINESE };
+            var invalidSize = new Size(0, 0);
+            _presentationModel.ProcessAddShapeButton(shapeOption, invalidSize);
+            Assert.AreEqual(0, model.Shapes.ShapeList.Count);
+        }
+
+        [TestMethod]
+        public void PressAddShapeButton_WithValidShapeNameAndValidSize_AddsShapeAndNotifiesModelChanged()
+        {
+            Model model = new Model();
+            _presentationModel = new FormPresentationModel(model);
+            var shapeOption = new ComboBox { Text = Constant.LINE_CHINESE };
+            _presentationModel.ProcessAddShapeButton(shapeOption, _size);
+            Assert.AreEqual(1, model.Shapes.ShapeList.Count);
+        }
+
+        [TestMethod]
+        public void ModelInfoCellClicked_NotifiesModelChanged_WhenValidCellClicked()
+        {
+            var model = new Model();
+            _presentationModel = new FormPresentationModel(model);
+            Line shape = new Line();
+            model.AddShape(shape);
+            _presentationModel.ModelInfoCellClick(0, 0);
+            Assert.AreEqual(0, model.Shapes.ShapeList.Count);
+        }
+
+        [TestMethod]
+        public void ModelInfoCellClicked_DoesNotNotifyModelChanged_WhenInvalidCellClicked()
+        {
+            var model = new Model();
+            _presentationModel = new FormPresentationModel(model);
+            Line shape = new Line();
+            model.AddShape(shape);
+            _presentationModel.ModelInfoCellClick(0, 1);
+            Assert.AreEqual(1, model.Shapes.ShapeList.Count);
+        }
+
+
+        [TestMethod]
+        public void AddSlideButton_AddsButtonToSlideInfo()
+        {
+            // Arrange
+            var model = new Model();
+            var formPresentationModel = new FormPresentationModel(model);
+            var slideInfo = new FlowLayoutPanel();
+
+            // Act
+            formPresentationModel.AddSlideButton(slideInfo);
+
+            // Assert
+            Assert.AreEqual(1, slideInfo.Controls.Count);
+            Assert.IsInstanceOfType(slideInfo.Controls[0], typeof(Button));
+        }
+
+        [TestMethod]
+        public void DeleteSlideButton_ClearsControlsInSlideInfo()
+        {
+            // Arrange
+            var model = new Model();
+            var formPresentationModel = new FormPresentationModel(model);
+            var slideInfo = new FlowLayoutPanel();
+            formPresentationModel.AddSlideButton(slideInfo);
+
+            // Act
+            formPresentationModel.DeleteSlideButton(slideInfo);
+
+            // Assert
+            Assert.AreEqual(0, slideInfo.Controls.Count);
+        }
+
+        [TestMethod]
+        public void HandleButtonResize_UpdatesSizeOfControlsInSlideInfo()
+        {
+            // Arrange
+            var model = new Model();
+            var formPresentationModel = new FormPresentationModel(model);
+            var slideInfo = new FlowLayoutPanel();
+            formPresentationModel.AddSlideButton(slideInfo);
+            var originalSize = slideInfo.Controls[0].Size;
+
+            // Act
+            formPresentationModel.HandleButtonResize(slideInfo);
+
+            // Assert
+            Assert.AreEqual(originalSize.Width, slideInfo.Controls[0].Width);
+            Assert.AreEqual(originalSize.Height, slideInfo.Controls[0].Height);
+        }
+
+        [TestMethod]
+        public void HandleCanvasResize_UpdatesSizeAndLocationOfCanva()
+        {
+            var model = new Model();
+            var formPresentationModel = new FormPresentationModel(model);
+            var canva = new DoubleBufferedPanel();
+            formPresentationModel.DoubleBufferPanel = canva;
+            var regionSize = new Size(800, 700);
+            canva.Size = new Size(640, 360);
+            int expectedWidth = regionSize.Width - Constant.SPLITTER_OFFSET;
+            int expectedHeight = expectedWidth / Constant.ASPECT_RATIO_X * Constant.ASPECT_RATIO_Y;
+            int expectedX = 0;
+            int expectedY = (regionSize.Height - expectedHeight) / 2;
+            formPresentationModel.HandleCanvasResize(canva, regionSize);
+            Assert.AreEqual(expectedWidth, canva.Width);
+            Assert.AreEqual(expectedHeight, canva.Height);
+            Assert.AreEqual(expectedX, canva.Location.X);
+            Assert.AreEqual(expectedY, canva.Location.Y);
+            Assert.IsTrue(canva.Width > 0);
+            Assert.IsTrue(canva.Height > 0);
+            regionSize = new Size(800, 400);
+            canva.Size = new Size(640, 360);
+            expectedHeight = regionSize.Height;
+            expectedWidth = expectedHeight / Constant.ASPECT_RATIO_Y * Constant.ASPECT_RATIO_X;
+            expectedX = (regionSize.Width - expectedWidth) / 2;
+            expectedY = 0;
+            formPresentationModel.HandleCanvasResize(canva, regionSize);
+            Assert.AreEqual(expectedWidth, canva.Width);
+            Assert.AreEqual(expectedHeight, canva.Height);
+            Assert.AreEqual(expectedX, canva.Location.X);
+            Assert.AreEqual(expectedY, canva.Location.Y);
+            Assert.IsTrue(canva.Width > 0);
+            Assert.IsTrue(canva.Height > 0);
+        }
+
+
     }
 }

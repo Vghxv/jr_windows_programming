@@ -2,13 +2,14 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Xml.Linq;
 namespace DrawingModel
 {
     public class FormPresentationModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Model _model;
-        private DoubleBufferedPanel _panel;
+        private DoubleBufferedPanel _doubleBufferPanel;
         public bool IsLineEnable
         {
             get; set;
@@ -32,15 +33,15 @@ namespace DrawingModel
                 return IsLineEnable || IsRectangleEnable || IsEllipseEnable;
             }
         }
-        public DoubleBufferedPanel Panel
+        public DoubleBufferedPanel DoubleBufferPanel
         {
             get
             {
-                return _panel;
+                return _doubleBufferPanel;
             }
             set
             {
-                _panel = value;
+                _doubleBufferPanel = value;
             }
         }
 
@@ -81,15 +82,25 @@ namespace DrawingModel
         {
             if (_model.IsCloseToAdjust)
             {
-                _panel.Cursor = Cursors.SizeNWSE;
+                _doubleBufferPanel.Cursor = Cursors.SizeNWSE;
             }
             else if (_model.CurrentState is DrawingState)
             {
-                _panel.Cursor = Cursors.Cross;
+                _doubleBufferPanel.Cursor = Cursors.Cross;
             }
             else
             {
-                _panel.Cursor = Cursors.Default;
+                _doubleBufferPanel.Cursor = Cursors.Default;
+            }
+        }
+
+        // handle _model changed
+        public void ModelInfoCellClick(int position, int index)
+        {
+            if (index == 0)
+            {
+                _model.CommandManager.Execute(new DeleteCommand(_model, _model.Shapes.ShapeList[position]));
+                _model.NotifyModelChanged();
             }
         }
 
@@ -125,7 +136,7 @@ namespace DrawingModel
             _model.HandleCanvasReleased(number1, number2);
         }
         
-        // get shape name to add
+        // get _shape name to add
         public string GetShapeNameToAdd(string shapeName)
         {
             switch (shapeName)
@@ -141,24 +152,24 @@ namespace DrawingModel
             }
         }
 
-        // press add shape button
-        public void ProcessAddShapeButton(object sender, EventArgs e, ComboBox shapeOption)
+        // press add _shape button
+        public void ProcessAddShapeButton(ComboBox shapeOption, Size size)
         {
             string shapeToAdd = GetShapeNameToAdd(shapeOption.Text);
-            
-            if (string.IsNullOrEmpty(shapeToAdd))
+            if (string.IsNullOrEmpty(shapeToAdd) || (size.Width == 0 && size.Height == 0))
             {
                 return;
             }
-            _model.AddShape(shapeToAdd);
+            var pairs = _model.GenerateTwoPairs(size);
+            Shape shape = ShapeFactory.CreateShape(shapeToAdd, pairs.Item1, pairs.Item2);
+            _model.CommandManager.Execute(new AddCommand(_model, shape));
             _model.NotifyModelChanged();
         }
 
         // press line button
-        public void ProcessLineBotton(object sender, EventArgs e)
+        public void ProcessLineButton()
         {
-            _model.SetHint(ShapeFactory.CreateShape(Constant.ASSEMBLY + Constant.LINE));
-            _model.CurrentState = new DrawingState(_model);
+            _model.CurrentState = new DrawingState(_model, ShapeFactory.CreateShape(Constant.ASSEMBLY + Constant.LINE));
             _model.SetShapeSelected(false);
             _model.NotifyModelChanged();
             IsLineEnable = true;
@@ -167,31 +178,29 @@ namespace DrawingModel
         }
 
         // press rectangle button
-        public void ProcessRectangleButton(object sender, EventArgs e)
+        public void ProcessRectangleButton()
         {
             IsRectangleEnable = true;
             IsLineEnable = IsEllipseEnable = IsIdleEnable = false;
-            _model.SetHint(ShapeFactory.CreateShape(Constant.ASSEMBLY + Constant.RECTANGLE));
-            _model.CurrentState = new DrawingState(_model);
+            _model.CurrentState = new DrawingState(_model, ShapeFactory.CreateShape(Constant.ASSEMBLY + Constant.RECTANGLE));
             _model.SetShapeSelected(false);
             _model.NotifyModelChanged();
             NotifyAllProperties();
         }
 
         // press ellipse button
-        public void ProcessEllispeButton(object sender, EventArgs e)
+        public void ProcessEllipseButton()
         {
-            _model.SetHint(ShapeFactory.CreateShape(Constant.ASSEMBLY + Constant.ELLIPSE));
-            _model.CurrentState = new DrawingState(_model);
+            _model.CurrentState = new DrawingState(_model, ShapeFactory.CreateShape(Constant.ASSEMBLY + Constant.ELLIPSE));
             _model.SetShapeSelected(false);
             _model.NotifyModelChanged();
-            IsLineEnable = IsEllipseEnable = IsIdleEnable = false;
+            IsLineEnable = IsRectangleEnable = IsIdleEnable = false;
             IsEllipseEnable = true;
             NotifyAllProperties();
         }
 
         // press cursor button
-        public void ProcessCursorButton(object sender, EventArgs e)
+        public void ProcessCursorButton()
         {
             _model.CurrentState = new IdleState(_model);
             _model.SetShapeSelected(false);
@@ -205,6 +214,58 @@ namespace DrawingModel
         public void HandleKeyDown(Keys keys)
         {
             _model.HandleKeyDown(keys);
+        }
+
+        // add slide button
+        public void AddSlideButton(FlowLayoutPanel slideInfo)
+        {
+            int targetWidth = slideInfo.Width - Constant.SPLITTER_OFFSET;
+            int targetHeight = targetWidth / Constant.ASPECT_RATIO_X * Constant.ASPECT_RATIO_Y;
+            Button slideButton = new Button();
+            slideButton.BackColor = SystemColors.ControlLightLight;
+            slideButton.Location = new Point(0, 0);
+            slideButton.Margin = new Padding(Constant.SLIDE_BUTTON_MARGIN);
+            slideButton.Name = Constant.SLIDE_BUTTON;
+            slideButton.Size = new Size(targetWidth, targetHeight);
+            slideButton.TabIndex = 0;
+            slideButton.UseVisualStyleBackColor = false;
+            slideInfo.Controls.Add(slideButton);
+        }
+
+        // delete slide button
+        public void DeleteSlideButton(FlowLayoutPanel slideInfo)
+        {
+            slideInfo.Controls.Clear();
+        }
+
+        // handle Button resize
+        public void HandleButtonResize(FlowLayoutPanel slideInfo)
+        {
+            int targetWidth = slideInfo.Width - Constant.SPLITTER_OFFSET;
+            int targetHeight = targetWidth / Constant.ASPECT_RATIO_X * Constant.ASPECT_RATIO_Y;
+            foreach (Control control in slideInfo.Controls)
+            {
+                control.Size = new Size(targetWidth, targetHeight);
+            }
+        }
+
+        // handle Canvas resize
+        public void HandleCanvasResize(DoubleBufferedPanel doubleBufferPanel, Size regionSize)
+        {
+            if (((float)regionSize.Width / regionSize.Height) < ((float)Constant.ASPECT_RATIO_X / Constant.ASPECT_RATIO_Y))
+            {
+                int targetWidth = regionSize.Width - Constant.SPLITTER_OFFSET;
+                int targetHeight = targetWidth / Constant.ASPECT_RATIO_X * Constant.ASPECT_RATIO_Y;
+                doubleBufferPanel.Size = new Size(targetWidth, targetHeight);
+                doubleBufferPanel.Location = new Point(0, (regionSize.Height - targetHeight) >> 1);
+            }
+            else
+            {
+                int targetHeight = regionSize.Height;
+                int targetWidth = targetHeight / Constant.ASPECT_RATIO_Y * Constant.ASPECT_RATIO_X;
+                doubleBufferPanel.Size = new Size(targetWidth, targetHeight);
+                doubleBufferPanel.Location = new Point((regionSize.Width - targetWidth) >> 1, 0);
+            }
         }
     }
 }

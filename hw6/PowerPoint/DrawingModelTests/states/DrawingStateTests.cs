@@ -1,128 +1,106 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DrawingModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Moq;
 namespace DrawingModel.Tests
 {
     [TestClass]
     public class DrawingStateTests
     {
+        private DrawingState _drawingState;
+        private Mock<Model> _mockModel;
+        private Mock<Ellipse> _mockEllipse;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            _mockModel = new Mock<Model>();
+            _mockEllipse = new Mock<Ellipse>();
+            _drawingState = new DrawingState(_mockModel.Object, _mockEllipse.Object);
+        }
+
         [TestMethod]
         public void Constructor()
-        {
-            // Arrange
-            Model model = new Model();
-            DrawingState state = new DrawingState(model);
-            // Act
-            // Assert
+        { 
+            Assert.IsNotNull(_drawingState);
         }
 
         [TestMethod]
         public void MouseDown()
         {
-            // Arrange
             Model model = new Model();
-            model.SetHint(ShapeFactory.CreateShape("DrawingModel.Line"));
-            DrawingState state = new DrawingState(model);
-            // Act
-            state.MouseDown(1, 3);
-            // Assert
-            Assert.IsTrue(model.Hint is Line);
-            Assert.AreEqual(1, model.Hint.FirstPair.Number1);
-            Assert.AreEqual(3, model.Hint.FirstPair.Number2);
-            Assert.IsTrue(state.IsPressed);
+            Ellipse ellipse = new Ellipse();
+            _drawingState = new DrawingState(model, ellipse);
+            _drawingState.MouseDown(1, 3);
+            Assert.AreEqual(1, ellipse.FirstPair.Number1);
+            Assert.AreEqual(3, ellipse.FirstPair.Number2);
+            Assert.IsTrue(_drawingState.IsPressed);
         }
 
         [TestMethod]
         public void MouseMove()
         {
-            // Arrange
             Model model = new Model();
-            model.SetHint(ShapeFactory.CreateShape("DrawingModel.Line"));
-            DrawingState state = new DrawingState(model);
-            state.MouseDown(1, 3);
+            Ellipse ellipse = new Ellipse();
+            _drawingState = new DrawingState(model, ellipse);
+            _drawingState.MouseDown(1, 3);
+            _drawingState.MouseMove(4, 6);
 
-            // Act
-            state.MouseMove(4, 6);
+            Assert.AreEqual(4, ellipse.SecondPair.Number1);
+            Assert.AreEqual(6, ellipse.SecondPair.Number2);
 
-            // Assert
-            Assert.AreEqual(4, model.Hint.SecondPair.Number1);
-            Assert.AreEqual(6, model.Hint.SecondPair.Number2);
+            _drawingState.IsPressed = false;
+            _drawingState.MouseMove(344, 123);
 
-            // Act
-            state.IsPressed = false;
-            state.MouseMove(344, 123);
-
-            // Assert
-            Assert.AreEqual(4, model.Hint.SecondPair.Number1);
-            Assert.AreEqual(6, model.Hint.SecondPair.Number2);
+            Assert.AreEqual(4, ellipse.SecondPair.Number1);
+            Assert.AreEqual(6, ellipse.SecondPair.Number2);
 
         }
 
         [TestMethod]
         public void MouseUp()
         {
-            // Arrange
             Model model = new Model();
-            model.SetHint(ShapeFactory.CreateShape("DrawingModel.Line"));
-            DrawingState state = new DrawingState(model);
-            state.MouseDown(1, 3);
+            Ellipse ellipse = new Ellipse();
+            _drawingState = new DrawingState(model, ellipse);
+            _drawingState.MouseDown(1, 3);
+            _drawingState.MouseUp(4, 6);
 
-            // Act
-            state.MouseUp(4, 6);
+            Assert.AreEqual(4, ellipse.SecondPair.Number1);
+            Assert.AreEqual(6, ellipse.SecondPair.Number2);
+            Assert.IsFalse(_drawingState.IsPressed);
 
-            // Assert
-            Assert.AreEqual(4, model.Hint.SecondPair.Number1);
-            Assert.AreEqual(6, model.Hint.SecondPair.Number2);
-            Assert.IsFalse(state.IsPressed);
+            _drawingState.MouseUp(344, 123);
 
-            state.MouseUp(344, 123);
-
-            // Assert
-            Assert.AreEqual(4, model.Hint.SecondPair.Number1);
-            Assert.AreEqual(6, model.Hint.SecondPair.Number2);
+            Assert.AreEqual(4, ellipse.SecondPair.Number1);
+            Assert.AreEqual(6, ellipse.SecondPair.Number2);
         }
 
         [TestMethod]
         public void KeyPressed()
         {
-            // Arrange
-            Model model = new Model();
-            DrawingState state = new DrawingState(model);
-
-            // Act
-            state.KeyPressed(Keys.A);
-
-            // Assert
+            _drawingState.KeyPressed(Keys.A);
         }
 
         [TestMethod]
-        public void Draw()
+        public void Draw_WithIsPressedTrue()
         {
-            // Arrange
-            Model model = new Model();
-            model.SetHint(ShapeFactory.CreateShape("DrawingModel.Rectangle"));
-            DrawingState state = new DrawingState(model);
+            _drawingState = new DrawingState(new Model(), new Ellipse());
             MockGraphics graphics = new MockGraphics();
 
-            // Act
-            state.IsPressed = false;
-            state.Draw(graphics);
+            _drawingState.IsPressed = true;
+            _drawingState.Draw(graphics);
 
-            // Assert
-            Assert.IsFalse(graphics.DrawRectangleCalled);
+            Assert.IsTrue(graphics.DrawEllipseCalled);
+        }
 
-            // Act
-            state.IsPressed = true;
-            state.Draw(graphics);
-
-            // Assert
-            Assert.IsTrue(graphics.DrawRectangleCalled);
+        [TestMethod]
+        public void Draw_WithIsPressedFalse()
+        {
+            _drawingState = new DrawingState(new Model(), new Ellipse());
+            MockGraphics graphics = new MockGraphics();
+            _drawingState.IsPressed = false;
+            _drawingState.Draw(graphics);
+            Assert.IsFalse(graphics.DrawEllipseCalled);
         }
     }
 }

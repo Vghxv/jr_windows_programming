@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Drawing;
-using DrawingModel;
 
 namespace DrawingModel.Tests
 {

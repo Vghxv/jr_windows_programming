@@ -46,7 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constant.cs" />
+    <Compile Include="command\AddCommand.cs" />
+    <Compile Include="command\CommandManager.cs" />
+    <Compile Include="command\DeleteCommand.cs" />
+    <Compile Include="command\DrawCommand.cs" />
+    <Compile Include="command\MoveCommand.cs" />
+    <Compile Include="utils\Constant.cs" />
+    <Compile Include="command\ICommand.cs" />
     <Compile Include="presentationModel\DoubleBufferedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -59,7 +65,7 @@
     <Compile Include="shape\Ellipse.cs" />
     <Compile Include="states\IdleState.cs" />
     <Compile Include="utils\Pair.cs" />
-    <Compile Include="PairFactory.cs" />
+    <Compile Include="utils\PairFactory.cs" />
     <Compile Include="FormModel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,8 +81,8 @@
     <Compile Include="shape\Rectangle.cs" />
     <Compile Include="states\SelectingState.cs" />
     <Compile Include="shape\Shape.cs" />
-    <Compile Include="ShapeFactory.cs" />
-    <Compile Include="Shapes.cs" />
+    <Compile Include="shape\ShapeFactory.cs" />
+    <Compile Include="shape\Shapes.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

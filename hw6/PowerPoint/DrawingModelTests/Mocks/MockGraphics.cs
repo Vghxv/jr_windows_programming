@@ -1,6 +1,4 @@
-﻿using DrawingModel;
-
-namespace DrawingModel.Tests
+﻿namespace DrawingModel.Tests
 {
     public class MockGraphics : IGraphics
     {
@@ -30,7 +28,7 @@ namespace DrawingModel.Tests
             private set; 
         }
 
-        // ClearAll method to clear any tracking or state
+        // ClearAll method to clear any tracking or _state
         public void ClearAll()
         {
             // Implement as needed for your testing scenario

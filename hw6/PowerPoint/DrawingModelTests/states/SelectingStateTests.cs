@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DrawingModel;
 using System.Windows.Forms;
 
 namespace DrawingModel.Tests
@@ -18,7 +17,7 @@ namespace DrawingModel.Tests
             return model;
         }
 
-        // Helper method to get the selected shape
+        // Helper method to get the selected _rectangle
         private Shape GetSelectedShape(Model model)
         {
             foreach (Shape shape in model.Shapes.ShapeList)
@@ -119,7 +118,7 @@ namespace DrawingModel.Tests
             Model model = CreateModelWithShapes();
             SelectingState selectingState = new SelectingState(model);
             Rectangle rectangle = (Rectangle)model.Shapes.ShapeList[1];
-            selectingState.MouseDown(29, 78); // Simulate pressing on a shape
+            selectingState.MouseDown(29, 78); // Simulate pressing on a _rectangle
             selectingState.IsMousePressedOnAdjust = true;
 
             // Act
@@ -148,7 +147,7 @@ namespace DrawingModel.Tests
             Model model = CreateModelWithShapes();
             SelectingState selectingState = new SelectingState(model);
             Rectangle rectangle = (Rectangle)model.Shapes.ShapeList[1];
-            selectingState.MouseDownCheck(5, 5); // Simulate pressing on a shape
+            selectingState.MouseDownCheck(5, 5); // Simulate pressing on a _rectangle
             selectingState.IsMousePressedOnAdjust = true;
 
             // Act
@@ -314,5 +313,25 @@ namespace DrawingModel.Tests
             Assert.IsTrue(eventTrigger);
         }
 
+        [TestMethod]
+        public void MouseUp_WhileIsMousePressedOnSelected_IsTrue()
+        {
+            Model model = CreateModelWithShapes();
+            SelectingState selectingState = new SelectingState(model);
+            selectingState.IsMousePressedOnAdjust = false;
+            selectingState.IsMousePressedOnSelected = true;
+            selectingState.MouseDown(30, 30);
+            selectingState.MouseUp(40, 40);
+        }
+
+        [TestMethod]
+        public void MouseUp_WhileIsMousePressedOnSelected_IsFalse()
+        {
+            Model model = CreateModelWithShapes();
+            SelectingState selectingState = new SelectingState(model);
+            selectingState.MouseDown(30, 30);
+            selectingState.MouseMove(35, 35);
+            selectingState.MouseUp(40, 40);
+        }
     }
 }

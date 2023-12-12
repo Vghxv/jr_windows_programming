@@ -34,7 +34,7 @@ namespace CommandExample
             undo.Push(cmd);
             cmd.Execute();
         }
-
+ 
         public bool IsRedoEnabled
         {
             get

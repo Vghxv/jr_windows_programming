@@ -26,11 +26,12 @@ namespace DrawingModel
             graphics.DrawEllipse(FirstPair, SecondPair);
             if (IsSelected)
             {
-                graphics.DrawRectangleHandle(FirstPair, SecondPair);
+                var normalPairs = GetLocation(FirstPair, SecondPair);
+                graphics.DrawRectangleHandle(normalPairs.Item1, normalPairs.Item2);
             }
         }
 
-        // check is in shape
+        // check is in _shape
         public override bool IsInShape(float number1, float number2)
         {
             Pair point = new Pair(number1, number2);

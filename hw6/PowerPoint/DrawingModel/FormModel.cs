@@ -6,7 +6,6 @@ namespace DrawingModel
     {
         public FormModel()
         {
-            //InitializeComponent();
         }
     }
 }

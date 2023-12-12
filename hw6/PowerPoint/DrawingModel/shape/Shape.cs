@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace DrawingModel
 {
@@ -11,7 +12,7 @@ namespace DrawingModel
         private bool _isSelected;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string NameChinese
+        public virtual string NameChinese
         {
             set
             {
@@ -26,8 +27,8 @@ namespace DrawingModel
                 return _nameChinese;
             }
         }
-        [System.ComponentModel.Browsable(false)]
-        public Pair FirstPair
+        [Browsable(false)]
+        public virtual Pair FirstPair
         {
             set
             {
@@ -42,8 +43,8 @@ namespace DrawingModel
                 return _firstPair;
             }
         }
-        [System.ComponentModel.Browsable(false)]
-        public Pair SecondPair
+        [Browsable(false)]
+        public virtual Pair SecondPair
         {
             set
             {
@@ -65,8 +66,8 @@ namespace DrawingModel
                 return $"({ _firstPair.GetInfo()}), ({_secondPair.GetInfo()})";
             }
         }
-        [System.ComponentModel.Browsable(false)]
-        public bool IsSelected
+        [Browsable(false)]
+        public virtual bool IsSelected
         {
             get
             {
@@ -109,20 +110,20 @@ namespace DrawingModel
         }
 
         // move
-        public void Move(Pair offset)
+        public virtual void Move(Pair offset)
         {
             _firstPair += offset;
             _secondPair += offset;
         }
 
-        // is in shape
+        // is in _shape
         public virtual bool IsInShape(float number1, float number2)
         {
             return false;
         }
 
         // arrange points to top left and bottom right
-        public void ArrangePairs()
+        public virtual void ArrangePairs()
         {
             var pairs = GetLocation(FirstPair, SecondPair);
             FirstPair = pairs.Item1;
@@ -130,19 +131,18 @@ namespace DrawingModel
         }
 
         // get location
-        public (Pair, Pair) GetLocation(Pair pair1, Pair pair2)
+        public virtual (Pair, Pair) GetLocation(Pair pair1, Pair pair2)
         {
             Pair newPair1 = new Pair(Math.Min(pair1.Number1, pair2.Number1), Math.Min(pair1.Number2, pair2.Number2));
             Pair newPair2 = new Pair(Math.Max(pair1.Number1, pair2.Number1), Math.Max(pair1.Number2, pair2.Number2));
             return (newPair1, newPair2);
         }
 
-        // get location by shape
-        public (Pair, Pair) GetLocation()
+        // resize shape
+        public virtual void Resize(Pair original, Pair target)
         {
-            Pair newPair1 = new Pair(Math.Min(FirstPair.Number1, SecondPair.Number1), Math.Min(FirstPair.Number2, SecondPair.Number2));
-            Pair newPair2 = new Pair(Math.Max(FirstPair.Number1, SecondPair.Number1), Math.Max(FirstPair.Number2, SecondPair.Number2));
-            return (newPair1, newPair2);
+            FirstPair = FirstPair * target / original;
+            SecondPair = SecondPair * target / original;
         }
     }
 }

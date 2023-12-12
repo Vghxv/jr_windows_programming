@@ -25,3 +25,12 @@ D:\jun_windows_programming\hw5\PowerPoint\DrawingModel\obj\Debug\DrawingModel.cs
 D:\jun_windows_programming\hw5\PowerPoint\DrawingModel\obj\Debug\DrawingModel.csproj.CoreCompileInputs.cache
 D:\jun_windows_programming\hw5\PowerPoint\DrawingModel\obj\Debug\DrawingModel.exe
 D:\jun_windows_programming\hw5\PowerPoint\DrawingModel\obj\Debug\DrawingModel.pdb
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\bin\Debug\DrawingModel.exe.config
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\bin\Debug\DrawingModel.exe
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\bin\Debug\DrawingModel.pdb
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Debug\DrawingModel.csproj.AssemblyReference.cache
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Debug\DrawingModel.Properties.Resources.resources
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Debug\DrawingModel.csproj.GenerateResource.cache
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Debug\DrawingModel.csproj.CoreCompileInputs.cache
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Debug\DrawingModel.exe
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Debug\DrawingModel.pdb

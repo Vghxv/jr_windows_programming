@@ -52,3 +52,12 @@ C:\Users\Teaching\Desktop\CommandExample - Command Manager\CommandExample\obj\De
 C:\Users\Teaching\Desktop\CommandExample - Command Manager\CommandExample\obj\Debug\CommandExample.csproj.GenerateResource.Cache
 C:\Work\text\lecture\Windows Programming\Example Code\CommandExample - Command Manager\CommandExample\obj\Debug\CommandExample.exe
 C:\Work\text\lecture\Windows Programming\Example Code\CommandExample - Command Manager\CommandExample\obj\Debug\CommandExample.pdb
+D:\jr_windows_programming\CommandExample - Command Manager\CommandExample\bin\Debug\CommandExample.exe
+D:\jr_windows_programming\CommandExample - Command Manager\CommandExample\bin\Debug\CommandExample.pdb
+D:\jr_windows_programming\CommandExample - Command Manager\CommandExample\obj\Debug\CommandExample.csproj.AssemblyReference.cache
+D:\jr_windows_programming\CommandExample - Command Manager\CommandExample\obj\Debug\CommandExample.Properties.Resources.resources
+D:\jr_windows_programming\CommandExample - Command Manager\CommandExample\obj\Debug\CommandExample.csproj.GenerateResource.cache
+D:\jr_windows_programming\CommandExample - Command Manager\CommandExample\obj\Debug\CommandExample.csproj.CoreCompileInputs.cache
+D:\jr_windows_programming\CommandExample - Command Manager\CommandExample\obj\Debug\CommandExample.exe
+D:\jr_windows_programming\CommandExample - Command Manager\CommandExample\obj\Debug\CommandExample.pdb
+D:\jr_windows_programming\CommandExample - Command Manager\CommandExample\obj\Debug\CommandExample.Form1.resources

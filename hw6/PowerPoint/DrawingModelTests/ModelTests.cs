@@ -1,27 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DrawingModel;
 using System.Windows.Forms;
 using System.Linq;
+using System.Drawing;
 
 namespace DrawingModel.Tests
 {
     [TestClass]
     public class ModelTests
     {
-        [TestMethod]
-        public void AddShape_Should_Add_Shape_To_Shapes()
-        {
-            // Arrange
-            Model model = new Model();
-            int initialCount = model.Shapes.ShapeList.Count;
-
-            // Act
-            model.AddShape("DrawingModel.Rectangle");
-
-            // Assert
-            Assert.AreEqual(initialCount + 1, model.Shapes.ShapeList.Count);
-        }
-
         [TestMethod]
         public void HandleCanvasPressed_Should_Set_ModelState()
         {
@@ -34,38 +20,6 @@ namespace DrawingModel.Tests
 
             // Assert
             Assert.IsTrue(model.CurrentState is IdleState);
-        }
-
-        [TestMethod]
-        public void SetHint_Should_Set_Hint_In_Model()
-        {
-            // Arrange
-            Model model = new Model();
-            string shapeName = "DrawingModel.Rectangle";
-
-            // Act
-            model.SetHint(ShapeFactory.CreateShape(shapeName));
-
-            // Assert
-            Assert.IsTrue(model.Hint is Rectangle);
-        }
-
-        [TestMethod]
-        public void RemoveShape_Should_Remove_Shape_At_Index()
-        {
-            // Arrange
-            Model model = new Model();
-            Shape shape1 = new Rectangle();
-            Shape shape2 = new Line();
-            model.AddShape(shape1);
-            model.AddShape(shape2);
-
-            // Act
-            model.RemoveShape(0);
-
-            // Assert
-            Assert.AreEqual(1, model.Shapes.ShapeList.Count);
-            Assert.AreSame(shape2, model.Shapes.ShapeList[0]);
         }
 
         [TestMethod]
@@ -143,7 +97,7 @@ namespace DrawingModel.Tests
             Model model = new Model();
             MockModelState mockState = new MockModelState();
             model.CurrentState = mockState;
-            Keys keys = Keys.A; // Replace with the desired key
+            Keys keys = Keys.A; 
 
             // Act
             model.HandleKeyDown(keys);
@@ -152,77 +106,15 @@ namespace DrawingModel.Tests
             Assert.IsTrue(mockState.KeyPressedCalled);
             Assert.AreEqual(keys, mockState.LastKeys);
         }
-        [TestMethod]
-        public void AddHintToShapes_ShouldAddHintToShapesList()
-        {
-            // Arrange
-            Model model = new Model();
-            model.SetHint(ShapeFactory.CreateShape("DrawingModel.Rectangle"));
-            // Act
-            model.AddHintToShapes();
 
-            // Assert
-            Assert.AreEqual(1 ,model.Shapes.ShapeList.Count);
-            Assert.IsTrue(model.Shapes.ShapeList.First() is Rectangle);
-        }
-
-        [TestMethod]
-        public void SetHintFirstPoint_ShouldSetFirstPointCorrectly()
-        {
-            // Arrange
-            Model model = new Model();
-            model.SetHint(ShapeFactory.CreateShape("DrawingModel.Rectangle"));
-
-            float firstPointX = 10;
-            float firstPointY = 20;
-
-            // Act
-            model.SetHintFirstPoint(firstPointX, firstPointY);
-
-            // Assert
-            Assert.AreEqual(firstPointX, model.Hint.FirstPair.Number1);
-            Assert.AreEqual(firstPointY, model.Hint.FirstPair.Number2);
-        }
-
-        [TestMethod]
-        public void SetHintSecondPoint_ShouldSetSecondPointCorrectly()
-        {
-            // Arrange
-            Model model = new Model();
-            model.SetHint(ShapeFactory.CreateShape("DrawingModel.Rectangle"));
-
-            float secondPointX = 30;
-            float secondPointY = 40;
-
-            // Act
-            model.SetHintSecondPoint(secondPointX, secondPointY);
-
-            // Assert
-            Assert.AreEqual(secondPointX, model.Hint.SecondPair.Number1);
-            Assert.AreEqual(secondPointY, model.Hint.SecondPair.Number2);
-        }
-
-        [TestMethod]
-        public void DrawHint_ShouldCallDrawMethodOfHint()
-        {
-            // Arrange
-            Model model = new Model();
-            MockGraphics mockGraphics = new MockGraphics();
-            model.SetHint(ShapeFactory.CreateShape("DrawingModel.Rectangle"));
-
-            // Act
-            model.DrawHint(mockGraphics);
-
-            // Assert
-        }
         [TestMethod]
         public void Draw_ShouldCallDrawMethodOfShapesAndModelState()
         {
             // Arrange
             Model model = new Model();
             MockGraphics mockGraphics = new MockGraphics();
-            Ellipse shape1 = new Ellipse(); // Use your mock or a real shape for testing
-            Rectangle shape2 = new Rectangle(); // Use your mock or a real shape for testing
+            Ellipse shape1 = new Ellipse();
+            DrawingModel.Rectangle shape2 = new Rectangle();
             model.Shapes.AddShape(shape1);
             model.Shapes.AddShape(shape2);
             MockModelState mockModelState = new MockModelState();
@@ -239,7 +131,6 @@ namespace DrawingModel.Tests
             Assert.IsFalse(mockGraphics.DrawRectangleHandleCalled);
 
             Assert.IsTrue(mockModelState.DrawCalled);
-            // Ensure that the Draw method of each shape in _shapes and Draw method of the model state are called
         }
 
         [TestMethod]
@@ -272,6 +163,46 @@ namespace DrawingModel.Tests
             // Assert
             Assert.AreEqual(expectedAdjustPoint.Number1, actualAdjustPoint.Number1, "AdjustPoint.Number1 should be set correctly.");
             Assert.AreEqual(expectedAdjustPoint.Number2, actualAdjustPoint.Number2, "AdjustPoint.Number2 should be set correctly.");
+        }
+
+        [TestMethod]
+        public void ResizeShapes_WhenCalled_ShouldResizeShapes()
+        {
+            // Arrange
+            Model model = new Model();
+            Shape shape1 = new Rectangle(new Pair(100, 100), new Pair(200, 200));
+            Shape shape2 = new Line(new Pair(100, 100), new Pair(300, 400));
+            model.AddShape(shape1);
+            model.AddShape(shape2);
+
+            Size originalSize = new Size(100, 50);
+            Size targetSize = new Size(200, 300);
+
+            // Act
+            model.ResizeShapes(originalSize, targetSize);
+
+            // Assert
+            Assert.IsTrue(new Pair(200, 600) == shape1.FirstPair); 
+            Assert.IsTrue(new Pair(400, 1200) == shape1.SecondPair); 
+            Assert.IsTrue(new Pair(200, 600) == shape2.FirstPair); 
+            Assert.IsTrue(new Pair(600, 2400) == shape2.SecondPair); 
+        }
+
+        [TestMethod]
+        public void MoveShape_WhenCalled_ShouldMoveShape()
+        {
+            Model model = new Model();
+            Shape shape1 = new Rectangle(new Pair(100, 100), new Pair(200, 200));
+            Shape shape2 = new Line(new Pair(100, 100), new Pair(300, 400));
+            model.AddShape(shape1);
+            model.AddShape(shape2);
+
+            Pair offset = new Pair(100, 100);
+            model.MoveShape(shape2, offset);
+            Assert.IsTrue(new Pair(200, 200) == shape2.FirstPair);
+            Assert.IsTrue(new Pair(400, 500) == shape2.SecondPair);
+
+
         }
     }
 }

@@ -7,11 +7,11 @@ namespace DrawingModel
             NameChinese = Constant.RECTANGLE_CHINESE;
         }
 
-        public Rectangle(Pair firstDoubleNumber, Pair secondDoubleNumber)
+        public Rectangle(Pair pair1, Pair pair2)
         {
             NameChinese = Constant.RECTANGLE_CHINESE;
-            FirstPair = firstDoubleNumber;
-            SecondPair = secondDoubleNumber;
+            FirstPair = pair1;
+            SecondPair = pair2;
         }
 
         // get info
@@ -26,17 +26,17 @@ namespace DrawingModel
             graphics.DrawRectangle(FirstPair, SecondPair);
             if (IsSelected)
             {
-                graphics.DrawRectangleHandle(FirstPair, SecondPair);
+                var normalPairs = GetLocation(FirstPair, SecondPair);
+                graphics.DrawRectangleHandle(normalPairs.Item1, normalPairs.Item2);
             }
         }
 
-        // check is in shape
+        // check is in _shape
         public override bool IsInShape(float number1, float number2)
         {
             Pair point = new Pair(number1, number2);
             Pair offset = new Pair(Constant.POINT_DELTA, Constant.POINT_DELTA);
             return FirstPair - offset <= point && SecondPair + offset >= point;
         }
-        
     }
 }

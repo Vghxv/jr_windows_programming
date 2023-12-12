@@ -71,15 +71,21 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="command\AddCommandTests.cs" />
+    <Compile Include="command\CommandManagerTests.cs" />
+    <Compile Include="command\DeleteCommandTests.cs" />
+    <Compile Include="command\DrawCommandTests.cs" />
+    <Compile Include="command\MoveCommandTests.cs" />
+    <Compile Include="DoubleBufferPanelTests.cs" />
     <Compile Include="Mocks\MockGraphics.cs" />
     <Compile Include="Mocks\MockState.cs" />
     <Compile Include="ModelTests.cs" />
-    <Compile Include="PairFactoryTests.cs" />
+    <Compile Include="utils\PairFactoryTests.cs" />
     <Compile Include="presentationModel\FormPresentationModelTests.cs" />
     <Compile Include="presentationModel\FormsGraphicsAdaptorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShapeFactoryTests.cs" />
-    <Compile Include="ShapesTests.cs" />
+    <Compile Include="shape\ShapeFactoryTests.cs" />
+    <Compile Include="shape\ShapesTests.cs" />
     <Compile Include="shape\EllipseTests.cs" />
     <Compile Include="shape\LineTests.cs" />
     <Compile Include="shape\RectangleTests.cs" />
@@ -87,6 +93,7 @@
     <Compile Include="states\DrawingStateTests.cs" />
     <Compile Include="states\IdleStateTests.cs" />
     <Compile Include="states\SelectingStateTests.cs" />
+    <Compile Include="ToolStripBindableButtonTests.cs" />
     <Compile Include="utils\PairTests.cs" />
   </ItemGroup>
   <ItemGroup>

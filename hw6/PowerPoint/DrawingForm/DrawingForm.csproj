@@ -50,14 +50,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\DrawingModel\Constant.cs">
-      <Link>model\Constant.cs</Link>
+    <Compile Include="..\DrawingModel\command\AddCommand.cs">
+      <Link>model\AddCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\command\CommandManager.cs">
+      <Link>model\CommandManager.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\command\DeleteCommand.cs">
+      <Link>model\DeleteCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\command\DrawCommand.cs">
+      <Link>model\DrawCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\command\ICommand.cs">
+      <Link>model\ICommand.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\command\MoveCommand.cs">
+      <Link>model\MoveCommand.cs</Link>
     </Compile>
     <Compile Include="..\DrawingModel\Model.cs">
       <Link>model\Model.cs</Link>
-    </Compile>
-    <Compile Include="..\DrawingModel\PairFactory.cs">
-      <Link>model\PairFactory.cs</Link>
     </Compile>
     <Compile Include="..\DrawingModel\presentationModel\DoubleBufferedPanel.cs">
       <Link>presentationModel\DoubleBufferedPanel.cs</Link>
@@ -73,12 +85,6 @@
       <Link>presentationModel\ToolStripBindableButton.cs</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="..\DrawingModel\ShapeFactory.cs">
-      <Link>model\ShapeFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\DrawingModel\Shapes.cs">
-      <Link>model\Shapes.cs</Link>
-    </Compile>
     <Compile Include="..\DrawingModel\shape\Ellipse.cs">
       <Link>model\Ellipse.cs</Link>
     </Compile>
@@ -90,6 +96,12 @@
     </Compile>
     <Compile Include="..\DrawingModel\shape\Shape.cs">
       <Link>model\Shape.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\shape\ShapeFactory.cs">
+      <Link>model\ShapeFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\shape\Shapes.cs">
+      <Link>model\Shapes.cs</Link>
     </Compile>
     <Compile Include="..\DrawingModel\states\DrawingState.cs">
       <Link>model\DrawingState.cs</Link>
@@ -103,11 +115,17 @@
     <Compile Include="..\DrawingModel\states\SelectingState.cs">
       <Link>model\SelectingState.cs</Link>
     </Compile>
+    <Compile Include="..\DrawingModel\utils\Constant.cs">
+      <Link>model\Constant.cs</Link>
+    </Compile>
     <Compile Include="..\DrawingModel\utils\IGraphics.cs">
       <Link>model\IGraphics.cs</Link>
     </Compile>
     <Compile Include="..\DrawingModel\utils\Pair.cs">
       <Link>model\Pair.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\utils\PairFactory.cs">
+      <Link>model\PairFactory.cs</Link>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace DrawingModel
@@ -8,24 +10,24 @@ namespace DrawingModel
         public event ModelChangedEventHandler _modelChanged;
         public delegate void ModelChangedEventHandler(EventArgs e);
         private Shapes _shapes;
-        private Shape _hint;
         private Pair _adjustPoint;
         private bool _isCloseToAdjust;
         private ModelState _modelState;
+        private CommandManager _commandManager;
 
-        public Shapes Shapes
+        public CommandManager CommandManager
+        {
+            get
+            {
+                return _commandManager;
+            }
+        }
+
+        public virtual Shapes Shapes
         {
             get
             {
                 return _shapes;
-            }
-        }
-
-        public Shape Hint
-        {
-            get
-            {
-                return _hint;
             }
         }
 
@@ -53,7 +55,7 @@ namespace DrawingModel
             }
         }
 
-        public bool IsCloseToAdjust
+        public virtual bool IsCloseToAdjust
         {
             get
             {
@@ -68,12 +70,13 @@ namespace DrawingModel
         { 
             _shapes = new Shapes();
             _modelState = new IdleState(this);
+            _commandManager = new CommandManager();
         }
 
-        // remove shape by index
-        public void RemoveShape(int index)
+        // remove shape
+        public virtual void RemoveShape(Shape shape)
         {
-            _shapes.RemoveShape(index);
+            _shapes.RemoveShape(shape);
         }
 
         // clear shapes
@@ -85,53 +88,43 @@ namespace DrawingModel
         // set all shapes isSelected bool
         public void SetShapeSelected(bool isSelected)
         {
-            _shapes.SetShapeSelected(isSelected);
+            _shapes.SetAllShapeSelected(isSelected);
         }
 
         // handle canvas pressed
-        public void HandleCanvasPressed(float number1, float number2)
+        public virtual void HandleCanvasPressed(float number1, float number2)
         {
             _modelState.MouseDown(number1, number2);
         }
 
         // handle canvas moved
-        public void HandleCanvasMoved(float number1, float number2)
+        public virtual void HandleCanvasMoved(float number1, float number2)
         {
             _modelState.MouseMove(number1, number2);
         }
 
         // handle canvas released
-        public void HandleCanvasReleased(float number1, float number2)
+        public virtual void HandleCanvasReleased(float number1, float number2)
         {
             _modelState.MouseUp(number1, number2);
         }
 
         // handle key down
-        public void HandleKeyDown(Keys keys)
+        public virtual void HandleKeyDown(Keys keys)
         {
             _modelState.KeyPressed(keys);
         }
 
-        // add shape by name
-        public void AddShape(string name)
-        {
-            Pair firstPair = PairFactory.CreateRandomDoubleNumber(
-            Constant.MIN_X, Constant.MAX_X, Constant.MIN_Y, Constant.MAX_Y);
-            Pair secondPair = PairFactory.CreateRandomDoubleNumber(
-            (int)firstPair.Number1, Constant.MAX_X, (int)firstPair.Number2, Constant.MAX_Y);
-            _shapes.AddShape(name, firstPair, secondPair);
-        }
-
-        // add shape by shape
+        // add _shape by _shape
         public virtual void AddShape(Shape shape)
         {
             _shapes.AddShape(shape);
         }
 
-        // add hint to shapes
-        public virtual void AddHintToShapes()
+        // move _shape
+        public virtual void MoveShape(Shape shape ,Pair offset)
         {
-            _shapes.AddShape(_hint);
+            _shapes.MoveShape(shape, offset);
         }
 
         // draw
@@ -144,37 +137,11 @@ namespace DrawingModel
             _modelState.Draw(graphics);
         }
 
-        // notify model changed 
+        // notify _model changed 
         public virtual void NotifyModelChanged()
         {
             if (_modelChanged != null)
                 _modelChanged(new EventArgs());
-        }
-
-        // set hint
-        public void SetHint(Shape shape)
-        {
-            _hint = shape;
-        }
-
-        // draw hint
-        public virtual void DrawHint(IGraphics graphics)
-        {
-            _hint.Draw(graphics);
-        }
-
-        // set hint first point
-        public virtual void SetHintFirstPoint(float number1, float number2)
-        {
-            _hint.FirstPair.Number1 = number1;
-            _hint.FirstPair.Number2 = number2;
-        }
-
-        // set hint second point
-        public virtual void SetHintSecondPoint(float number1, float number2)
-        {
-            _hint.SecondPair.Number1 = number1;
-            _hint.SecondPair.Number2 = number2;
         }
 
         // closeness to adjustPoint
@@ -184,6 +151,24 @@ namespace DrawingModel
             float deltaY = number2 - _adjustPoint.Number2;
             float distance = (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
             return distance < Constant.POINT_DELTA;
+        }
+
+        // generate two random pair
+        public (Pair, Pair) GenerateTwoPairs(Size size)
+        {
+            int seed = PairFactory.GetSeed(0);
+            Pair widthRange = new Pair(0, size.Width);
+            Pair heightRange = new Pair(0, size.Height);
+            Pair firstPair = PairFactory.CreateRandomPair(widthRange, heightRange, seed);
+            seed = PairFactory.GetSeed(Constant.RANDOM_SEED);
+            Pair secondPair = PairFactory.CreateRandomPair(widthRange, heightRange, seed);
+            return (firstPair, secondPair);
+        }
+
+        // resize shapes 
+        public void ResizeShapes(Size original, Size target)
+        {
+            _shapes.ResizeShapes(new Pair(original), new Pair(target));
         }
     }
 }

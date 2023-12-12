@@ -7,13 +7,11 @@ namespace DrawingModel.Tests
     public class EllipseTests
     {
         Ellipse _ellipse;
-        PrivateObject _privateObject;
 
         [TestInitialize]
         public void Initialize()
         {
             _ellipse = new Ellipse();
-            _privateObject = new PrivateObject(_ellipse);
         }
 
         [TestMethod]
@@ -29,7 +27,6 @@ namespace DrawingModel.Tests
             Pair firstPair = new Pair(1, 1);
             Pair secondPair = new Pair(3, 3);
             _ellipse = new Ellipse(firstPair, secondPair);
-            _privateObject = new PrivateObject(_ellipse);
             Assert.AreEqual(Constant.ELLIPSE_CHINESE, _ellipse.NameChinese);
             Assert.AreEqual(firstPair, _ellipse.FirstPair);
             Assert.AreEqual(secondPair, _ellipse.SecondPair);
@@ -41,7 +38,6 @@ namespace DrawingModel.Tests
             Pair firstPair = new Pair(1, 1);
             Pair secondPair = new Pair(3, 3);
             _ellipse = new Ellipse(firstPair, secondPair);
-            _privateObject = new PrivateObject(_ellipse);
             Assert.AreEqual($"({firstPair.GetInfo()}),({secondPair.GetInfo()})", _ellipse.GetInfo());
         }
 
@@ -75,7 +71,6 @@ namespace DrawingModel.Tests
             Pair firstPair = new Pair(10, 10);
             Pair secondPair = new Pair(30, 30);
             _ellipse = new Ellipse(firstPair, secondPair);
-            _privateObject = new PrivateObject(_ellipse);
             Assert.IsTrue(_ellipse.IsInShape(20, 20));
             Assert.IsFalse(_ellipse.IsInShape(50, 50));
             Assert.IsFalse(_ellipse.IsInShape(0, 20));

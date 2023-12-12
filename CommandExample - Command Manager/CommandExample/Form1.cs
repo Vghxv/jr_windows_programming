@@ -73,5 +73,17 @@ namespace CommandExample
             undo.Enabled = model.IsUndoEnabled;
             Invalidate();
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Form1
+            // 
+            this.ClientSize = new System.Drawing.Size(780, 483);
+            this.Name = "Form1";
+            this.ResumeLayout(false);
+
+        }
     }
 }

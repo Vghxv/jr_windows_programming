@@ -7,20 +7,17 @@ namespace DrawingModel.Tests
     public class RectangleTests
     {
         Rectangle _rectangle;
-        PrivateObject _privateObject;
 
         [TestInitialize]
         public void Initialize()
         {
             _rectangle = new Rectangle();
-            _privateObject = new PrivateObject(_rectangle);
         }
 
         [TestMethod]
         public void RectangleConstructorTest()
         {
             Assert.IsNotNull(_rectangle);
-            // Add more assertions if necessary
         }
 
         [TestMethod]
@@ -29,7 +26,6 @@ namespace DrawingModel.Tests
             Pair firstPair = new Pair(0, 0);
             Pair secondPair = new Pair(2, 2);
             _rectangle = new Rectangle(firstPair, secondPair);
-            _privateObject = new PrivateObject(_rectangle);
 
             Assert.IsNotNull(_rectangle);
             Assert.AreEqual(firstPair, _rectangle.FirstPair);
@@ -42,8 +38,6 @@ namespace DrawingModel.Tests
             Pair firstPair = new Pair(1, 1);
             Pair secondPair = new Pair(3, 3);
             _rectangle = new Rectangle(firstPair, secondPair);
-            _privateObject = new PrivateObject(_rectangle);
-
             Assert.AreEqual($"({firstPair.GetInfo()}),({secondPair.GetInfo()})", _rectangle.GetInfo());
         }
 
@@ -56,7 +50,6 @@ namespace DrawingModel.Tests
             _rectangle = new Rectangle(firstPair, secondPair);
             _rectangle.IsSelected = true;
             _rectangle.Draw(mockGraphics.Object);
-
             mockGraphics.Verify(x => x.DrawRectangle(firstPair, secondPair), Times.Once);
         }
 
@@ -69,7 +62,6 @@ namespace DrawingModel.Tests
             _rectangle = new Rectangle(firstPair, secondPair);
             _rectangle.IsSelected = false;
             _rectangle.Draw(mockGraphics.Object);
-
             mockGraphics.Verify(x => x.DrawRectangle(firstPair, secondPair), Times.Once);
         }
 
@@ -79,8 +71,6 @@ namespace DrawingModel.Tests
             Pair firstPair = new Pair(1, 1);
             Pair secondPair = new Pair(3, 3);
             _rectangle = new Rectangle(firstPair, secondPair);
-            _privateObject = new PrivateObject(_rectangle);
-
             Assert.IsTrue(_rectangle.IsInShape(2, 2));
             Assert.IsFalse(_rectangle.IsInShape(2, 200));
         }

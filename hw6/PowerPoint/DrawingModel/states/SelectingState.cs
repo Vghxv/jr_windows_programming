@@ -1,11 +1,11 @@
-using System;
 using System.Windows.Forms;
 namespace DrawingModel
 {
     public class SelectingState : ModelState
     {
         private Model _model;
-        protected Pair _lastPoint;
+        private Pair _startPair;
+        private Pair _lastPair;
         private bool _isMousePressedOnSelected;
         private bool _isMousePressedOnAdjust;
         public bool IsMousePressedOnSelected
@@ -19,6 +19,7 @@ namespace DrawingModel
                 _isMousePressedOnSelected = value;
             }
         }
+
         public bool IsMousePressedOnAdjust
         {
             get
@@ -36,7 +37,7 @@ namespace DrawingModel
             _model = model;
         }
 
-        // MouseDownCheck
+        // perform checks in MouseDown
         public void MouseDownCheck(float number1, float number2)
         {
             foreach (Shape shape in _model.Shapes.ShapeList)
@@ -46,7 +47,7 @@ namespace DrawingModel
                     _model.AdjustPoint = shape.SecondPair;
                     shape.IsSelected = true;
                     _isMousePressedOnSelected = true;
-                    _lastPoint = new Pair(number1, number2);
+                    _startPair = _lastPair = new Pair(number1, number2);
                     _isMousePressedOnAdjust = _model.IsCloseToAdjustPoint(number1, number2);
                     break;
                 }
@@ -58,6 +59,7 @@ namespace DrawingModel
         {
             _model.SetShapeSelected(false);
             MouseDownCheck(number1, number2);
+
             if (!_isMousePressedOnSelected && !_isMousePressedOnAdjust)
             {
                 _model.SetShapeSelected(false);
@@ -66,7 +68,7 @@ namespace DrawingModel
             _model.NotifyModelChanged();
         }
 
-        // MouseMoveOnAdujst
+        // called in MouseMove when mouse is pressed on adjust
         public void AdjustShapes(float number1, float number2)
         {
             foreach (Shape shape in _model.Shapes.ShapeList)
@@ -74,8 +76,8 @@ namespace DrawingModel
                 if (shape.IsSelected)
                 {
                     Pair pair = new Pair(number1, number2);
-                    shape.SecondPair += (pair - _lastPoint);
-                    _lastPoint = new Pair(pair);
+                    shape.SecondPair += (pair - _lastPair);
+                    _lastPair = new Pair(pair);
                     _model.AdjustPoint = shape.SecondPair;
                     _model.NotifyModelChanged();
                     return;
@@ -83,7 +85,7 @@ namespace DrawingModel
             }
         }
 
-        // MouseMoveOnSelected
+        // called in MouseMove when mouse is pressed on selected
         public void MoveShapes(float number1, float number2)
         {
             foreach (Shape shape in _model.Shapes.ShapeList)
@@ -91,8 +93,8 @@ namespace DrawingModel
                 if (shape.IsSelected)
                 {
                     Pair pair = new Pair(number1, number2);
-                    shape.Move(pair - _lastPoint);
-                    _lastPoint = new Pair(pair);
+                    shape.Move(pair - _lastPair);
+                    _lastPair = new Pair(pair);
                     _model.AdjustPoint = shape.SecondPair;
                     _model.NotifyModelChanged();
                     return;
@@ -121,6 +123,14 @@ namespace DrawingModel
         // MouseUp
         public void MouseUp(float number1, float number2)
         {
+            foreach (Shape shape in _model.Shapes.ShapeList)
+            {
+                if (shape.IsSelected)
+                {
+                    _model.CommandManager.Execute(new MoveCommand(_model, shape, new Pair(number1, number2) - _startPair));
+                    break;
+                }
+            }
             _isMousePressedOnSelected = false;
             _isMousePressedOnAdjust = false;
             _model.IsCloseToAdjust = _model.IsCloseToAdjustPoint(number1, number2);
@@ -142,7 +152,7 @@ namespace DrawingModel
                 {
                     if (shape.IsSelected)
                     {
-                        _model.RemoveShape(_model.Shapes.ShapeList.IndexOf(shape));
+                        _model.CommandManager.Execute(new DeleteCommand(_model, shape));
                         _model.NotifyModelChanged();
                         break;
                     }

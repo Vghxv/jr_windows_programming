@@ -33,40 +33,58 @@ namespace DrawingForm
             this._menuStripTop = new System.Windows.Forms.MenuStrip();
             this._menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._rightBox = new System.Windows.Forms.GroupBox();
-            this._shapeOption = new System.Windows.Forms.ComboBox();
-            this._buttonAdd = new System.Windows.Forms.Button();
-            this._modelInfo = new System.Windows.Forms.DataGridView();
-            this._slideInfo = new System.Windows.Forms.FlowLayoutPanel();
-            this._slideButton = new System.Windows.Forms.Button();
             this._toolStripTop = new System.Windows.Forms.ToolStrip();
-            this._panel = new DrawingModel.DoubleBufferedPanel();
-            this._nameChineseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._infoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.shapeBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this._toolStripButtonLine = new DrawingModel.ToolStripBindableButton();
             this._toolStripButtonRectangle = new DrawingModel.ToolStripBindableButton();
             this._toolStripButtonEllipse = new DrawingModel.ToolStripBindableButton();
             this._toolStripButtonIdle = new DrawingModel.ToolStripBindableButton();
+            this._undoButton = new System.Windows.Forms.ToolStripButton();
+            this._redoButton = new System.Windows.Forms.ToolStripButton();
+            this._slideInfo = new System.Windows.Forms.FlowLayoutPanel();
+            this._rightBox = new System.Windows.Forms.GroupBox();
+            this._rightSplitContainer = new System.Windows.Forms.SplitContainer();
+            this._deleteSlideButton = new System.Windows.Forms.Button();
+            this._addSlideButton = new System.Windows.Forms.Button();
+            this._shapeOption = new System.Windows.Forms.ComboBox();
+            this._addShapeButton = new System.Windows.Forms.Button();
+            this._modelInfo = new System.Windows.Forms.DataGridView();
+            this._superSplitContainer = new System.Windows.Forms.SplitContainer();
+            this._mainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this._subSplitContainer = new System.Windows.Forms.SplitContainer();
+            this._canvaPanelRegion = new System.Windows.Forms.Panel();
             this._shapeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._menuStripTop.SuspendLayout();
-            this._rightBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._modelInfo)).BeginInit();
-            this._slideInfo.SuspendLayout();
             this._toolStripTop.SuspendLayout();
+            this._rightBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._rightSplitContainer)).BeginInit();
+            this._rightSplitContainer.Panel1.SuspendLayout();
+            this._rightSplitContainer.Panel2.SuspendLayout();
+            this._rightSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._modelInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._superSplitContainer)).BeginInit();
+            this._superSplitContainer.Panel1.SuspendLayout();
+            this._superSplitContainer.Panel2.SuspendLayout();
+            this._superSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._mainSplitContainer)).BeginInit();
+            this._mainSplitContainer.Panel1.SuspendLayout();
+            this._mainSplitContainer.Panel2.SuspendLayout();
+            this._mainSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._subSplitContainer)).BeginInit();
+            this._subSplitContainer.Panel1.SuspendLayout();
+            this._subSplitContainer.Panel2.SuspendLayout();
+            this._subSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._shapeBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // _menuStripTop
             // 
-            this._menuStripTop.Dock = System.Windows.Forms.DockStyle.None;
             this._menuStripTop.ImageScalingSize = new System.Drawing.Size(20, 20);
             this._menuStripTop.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._menuToolStripMenuItem});
             this._menuStripTop.Location = new System.Drawing.Point(0, 0);
             this._menuStripTop.Name = "_menuStripTop";
-            this._menuStripTop.Padding = new System.Windows.Forms.Padding(5, 3, 0, 3);
-            this._menuStripTop.Size = new System.Drawing.Size(62, 30);
+            this._menuStripTop.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this._menuStripTop.Size = new System.Drawing.Size(1184, 24);
             this._menuStripTop.TabIndex = 0;
             this._menuStripTop.Text = "menuStrip1";
             // 
@@ -75,128 +93,31 @@ namespace DrawingForm
             this._menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._aboutToolStripMenuItem});
             this._menuToolStripMenuItem.Name = "_menuToolStripMenuItem";
-            this._menuToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this._menuToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this._menuToolStripMenuItem.Text = "選單";
             // 
             // _aboutToolStripMenuItem
             // 
             this._aboutToolStripMenuItem.Name = "_aboutToolStripMenuItem";
-            this._aboutToolStripMenuItem.Size = new System.Drawing.Size(124, 26);
+            this._aboutToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this._aboutToolStripMenuItem.Text = "關於";
-            // 
-            // _rightBox
-            // 
-            this._rightBox.Controls.Add(this._shapeOption);
-            this._rightBox.Controls.Add(this._buttonAdd);
-            this._rightBox.Controls.Add(this._modelInfo);
-            this._rightBox.Location = new System.Drawing.Point(1010, 58);
-            this._rightBox.Name = "_rightBox";
-            this._rightBox.Size = new System.Drawing.Size(496, 953);
-            this._rightBox.TabIndex = 2;
-            this._rightBox.TabStop = false;
-            this._rightBox.Text = "資料顯示";
-            // 
-            // _shapeOption
-            // 
-            this._shapeOption.FormattingEnabled = true;
-            this._shapeOption.Items.AddRange(new object[] {
-            "線",
-            "矩形",
-            "橢圓"});
-            this._shapeOption.Location = new System.Drawing.Point(261, 31);
-            this._shapeOption.Name = "_shapeOption";
-            this._shapeOption.Size = new System.Drawing.Size(121, 24);
-            this._shapeOption.TabIndex = 4;
-            // 
-            // _buttonAdd
-            // 
-            this._buttonAdd.Location = new System.Drawing.Point(17, 25);
-            this._buttonAdd.Name = "_buttonAdd";
-            this._buttonAdd.Size = new System.Drawing.Size(79, 35);
-            this._buttonAdd.TabIndex = 3;
-            this._buttonAdd.Text = "新增";
-            this._buttonAdd.UseVisualStyleBackColor = true;
-            this._buttonAdd.Click += new System.EventHandler(this.ProcessAddShapeButton);
-            // 
-            // _modelInfo
-            // 
-            this._modelInfo.AllowUserToAddRows = false;
-            this._modelInfo.AllowUserToDeleteRows = false;
-            this._modelInfo.AllowUserToResizeColumns = false;
-            this._modelInfo.AllowUserToResizeRows = false;
-            this._modelInfo.AutoGenerateColumns = false;
-            this._modelInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._modelInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this._nameChineseDataGridViewTextBoxColumn,
-            this._infoDataGridViewTextBoxColumn});
-            this._modelInfo.Location = new System.Drawing.Point(3, 76);
-            this._modelInfo.Name = "_modelInfo";
-            this._modelInfo.ReadOnly = true;
-            this._modelInfo.RowHeadersVisible = false;
-            this._modelInfo.RowHeadersWidth = 51;
-            this._modelInfo.RowTemplate.Height = 24;
-            this._modelInfo.Size = new System.Drawing.Size(466, 606);
-            this._modelInfo.TabIndex = 0;
-            // 
-            // _slideInfo
-            // 
-            this._slideInfo.Controls.Add(this._slideButton);
-            this._slideInfo.Location = new System.Drawing.Point(0, 58);
-            this._slideInfo.Name = "_slideInfo";
-            this._slideInfo.Size = new System.Drawing.Size(153, 923);
-            this._slideInfo.TabIndex = 3;
-            // 
-            // _slidebutton
-            // 
-            this._slideButton.Location = new System.Drawing.Point(3, 3);
-            this._slideButton.Name = "_slidebutton";
-            this._slideButton.Size = new System.Drawing.Size(146, 146);
-            this._slideButton.TabIndex = 0;
-            this._slideButton.UseVisualStyleBackColor = true;
             // 
             // _toolStripTop
             // 
-            this._toolStripTop.Dock = System.Windows.Forms.DockStyle.None;
+            this._toolStripTop.Dock = System.Windows.Forms.DockStyle.Fill;
             this._toolStripTop.ImageScalingSize = new System.Drawing.Size(20, 20);
             this._toolStripTop.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._toolStripButtonLine,
             this._toolStripButtonRectangle,
             this._toolStripButtonEllipse,
-            this._toolStripButtonIdle});
-            this._toolStripTop.Location = new System.Drawing.Point(0, 30);
+            this._toolStripButtonIdle,
+            this._undoButton,
+            this._redoButton});
+            this._toolStripTop.Location = new System.Drawing.Point(0, 0);
             this._toolStripTop.Name = "_toolStripTop";
-            this._toolStripTop.Size = new System.Drawing.Size(197, 31);
+            this._toolStripTop.Size = new System.Drawing.Size(1184, 25);
             this._toolStripTop.TabIndex = 1;
             this._toolStripTop.Text = "toolStrip1";
-            // 
-            // _panel
-            // 
-            this._panel.Location = new System.Drawing.Point(160, 58);
-            this._panel.Name = "_panel";
-            this._panel.Size = new System.Drawing.Size(800, 800);
-            this._panel.TabIndex = 4;
-            // 
-            // nameChineseDataGridViewTextBoxColumn
-            // 
-            this._nameChineseDataGridViewTextBoxColumn.DataPropertyName = "NameChinese";
-            this._nameChineseDataGridViewTextBoxColumn.HeaderText = "形狀";
-            this._nameChineseDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this._nameChineseDataGridViewTextBoxColumn.Name = "nameChineseDataGridViewTextBoxColumn";
-            this._nameChineseDataGridViewTextBoxColumn.ReadOnly = true;
-            this._nameChineseDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // infoDataGridViewTextBoxColumn
-            // 
-            this._infoDataGridViewTextBoxColumn.DataPropertyName = "Info";
-            this._infoDataGridViewTextBoxColumn.HeaderText = "資訊";
-            this._infoDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this._infoDataGridViewTextBoxColumn.Name = "infoDataGridViewTextBoxColumn";
-            this._infoDataGridViewTextBoxColumn.ReadOnly = true;
-            this._infoDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // shapeBindingSource1
-            // 
-            //this.shapeBindingSource1.DataSource = typeof(DrawingModel.Shape);
             // 
             // _toolStripButtonLine
             // 
@@ -204,9 +125,9 @@ namespace DrawingForm
             this._toolStripButtonLine.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripButtonLine.Image")));
             this._toolStripButtonLine.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripButtonLine.Name = "_toolStripButtonLine";
-            this._toolStripButtonLine.Size = new System.Drawing.Size(29, 28);
+            this._toolStripButtonLine.Size = new System.Drawing.Size(24, 22);
             this._toolStripButtonLine.Text = "➖";
-            this._toolStripButtonLine.Click += new System.EventHandler(this.ProcessLineBotton);
+            this._toolStripButtonLine.Click += new System.EventHandler(this.ProcessLineButton);
             // 
             // _toolStripButtonRectangle
             // 
@@ -214,7 +135,7 @@ namespace DrawingForm
             this._toolStripButtonRectangle.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripButtonRectangle.Image")));
             this._toolStripButtonRectangle.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripButtonRectangle.Name = "_toolStripButtonRectangle";
-            this._toolStripButtonRectangle.Size = new System.Drawing.Size(29, 28);
+            this._toolStripButtonRectangle.Size = new System.Drawing.Size(24, 22);
             this._toolStripButtonRectangle.Text = "🔲";
             this._toolStripButtonRectangle.Click += new System.EventHandler(this.ProcessRectangleButton);
             // 
@@ -224,9 +145,9 @@ namespace DrawingForm
             this._toolStripButtonEllipse.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripButtonEllipse.Image")));
             this._toolStripButtonEllipse.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripButtonEllipse.Name = "_toolStripButtonEllipse";
-            this._toolStripButtonEllipse.Size = new System.Drawing.Size(29, 28);
+            this._toolStripButtonEllipse.Size = new System.Drawing.Size(24, 22);
             this._toolStripButtonEllipse.Text = "⭕";
-            this._toolStripButtonEllipse.Click += new System.EventHandler(this.ProcessEllispeButton);
+            this._toolStripButtonEllipse.Click += new System.EventHandler(this.ProcessEllipseButton);
             // 
             // _toolStripButtonIdle
             // 
@@ -234,34 +155,258 @@ namespace DrawingForm
             this._toolStripButtonIdle.Image = ((System.Drawing.Image)(resources.GetObject("_toolStripButtonIdle.Image")));
             this._toolStripButtonIdle.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripButtonIdle.Name = "_toolStripButtonIdle";
-            this._toolStripButtonIdle.Size = new System.Drawing.Size(29, 28);
+            this._toolStripButtonIdle.Size = new System.Drawing.Size(24, 22);
             this._toolStripButtonIdle.Text = "🖱️";
             this._toolStripButtonIdle.Click += new System.EventHandler(this.ProcessCursorButton);
             // 
-            // shapeBindingSource
+            // _undoButton
+            // 
+            this._undoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._undoButton.Image = ((System.Drawing.Image)(resources.GetObject("_undoButton.Image")));
+            this._undoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._undoButton.Name = "_undoButton";
+            this._undoButton.Size = new System.Drawing.Size(24, 22);
+            this._undoButton.Text = "undo";
+            this._undoButton.Click += new System.EventHandler(this.UndoButtonClick);
+            // 
+            // _redoButton
+            // 
+            this._redoButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._redoButton.Image = ((System.Drawing.Image)(resources.GetObject("_redoButton.Image")));
+            this._redoButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._redoButton.Name = "_redoButton";
+            this._redoButton.Size = new System.Drawing.Size(24, 22);
+            this._redoButton.Text = "redo";
+            this._redoButton.Click += new System.EventHandler(this.RedoButtonClick);
+            // 
+            // _slideInfo
+            // 
+            this._slideInfo.AutoScroll = true;
+            this._slideInfo.BackColor = System.Drawing.SystemColors.ControlLight;
+            this._slideInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._slideInfo.Location = new System.Drawing.Point(0, 0);
+            this._slideInfo.Margin = new System.Windows.Forms.Padding(2);
+            this._slideInfo.Name = "_slideInfo";
+            this._slideInfo.Size = new System.Drawing.Size(116, 584);
+            this._slideInfo.TabIndex = 3;
+            // 
+            // _rightBox
+            // 
+            this._rightBox.BackColor = System.Drawing.SystemColors.ControlLight;
+            this._rightBox.Controls.Add(this._rightSplitContainer);
+            this._rightBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._rightBox.Location = new System.Drawing.Point(0, 0);
+            this._rightBox.Margin = new System.Windows.Forms.Padding(0);
+            this._rightBox.Name = "_rightBox";
+            this._rightBox.Size = new System.Drawing.Size(422, 584);
+            this._rightBox.TabIndex = 2;
+            this._rightBox.TabStop = false;
+            this._rightBox.Text = "資料顯示";
+            // 
+            // _rightSplitContainer
+            // 
+            this._rightSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._rightSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this._rightSplitContainer.IsSplitterFixed = true;
+            this._rightSplitContainer.Location = new System.Drawing.Point(3, 16);
+            this._rightSplitContainer.Name = "_rightSplitContainer";
+            this._rightSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // _rightSplitContainer.Panel1
+            // 
+            this._rightSplitContainer.Panel1.Controls.Add(this._deleteSlideButton);
+            this._rightSplitContainer.Panel1.Controls.Add(this._addSlideButton);
+            this._rightSplitContainer.Panel1.Controls.Add(this._shapeOption);
+            this._rightSplitContainer.Panel1.Controls.Add(this._addShapeButton);
+            this._rightSplitContainer.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            // 
+            // _rightSplitContainer.Panel2
+            // 
+            this._rightSplitContainer.Panel2.Controls.Add(this._modelInfo);
+            this._rightSplitContainer.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this._rightSplitContainer.Size = new System.Drawing.Size(416, 565);
+            this._rightSplitContainer.SplitterDistance = 76;
+            this._rightSplitContainer.TabIndex = 5;
+            // 
+            // _deleteSlideButton
+            // 
+            this._deleteSlideButton.AutoSize = true;
+            this._deleteSlideButton.Location = new System.Drawing.Point(299, 21);
+            this._deleteSlideButton.Margin = new System.Windows.Forms.Padding(2);
+            this._deleteSlideButton.Name = "_deleteSlideButton";
+            this._deleteSlideButton.Size = new System.Drawing.Size(77, 39);
+            this._deleteSlideButton.TabIndex = 6;
+            this._deleteSlideButton.Text = "清空全頁";
+            this._deleteSlideButton.UseVisualStyleBackColor = true;
+            this._deleteSlideButton.Click += new System.EventHandler(this.DeleteSlideButtonClick);
+            // 
+            // _addSlideButton
+            // 
+            this._addSlideButton.AutoSize = true;
+            this._addSlideButton.Location = new System.Drawing.Point(221, 21);
+            this._addSlideButton.Margin = new System.Windows.Forms.Padding(2);
+            this._addSlideButton.Name = "_addSlideButton";
+            this._addSlideButton.Size = new System.Drawing.Size(77, 39);
+            this._addSlideButton.TabIndex = 5;
+            this._addSlideButton.Text = "新增一頁";
+            this._addSlideButton.UseVisualStyleBackColor = true;
+            this._addSlideButton.Click += new System.EventHandler(this.AddSlideButtonClick);
+            // 
+            // _shapeOption
+            // 
+            this._shapeOption.FormattingEnabled = true;
+            this._shapeOption.Items.AddRange(new object[] {
+            "線",
+            "矩形",
+            "橢圓"});
+            this._shapeOption.Location = new System.Drawing.Point(98, 31);
+            this._shapeOption.Margin = new System.Windows.Forms.Padding(2);
+            this._shapeOption.Name = "_shapeOption";
+            this._shapeOption.Size = new System.Drawing.Size(92, 21);
+            this._shapeOption.TabIndex = 4;
+            // 
+            // _addShapeButton
+            // 
+            this._addShapeButton.AutoSize = true;
+            this._addShapeButton.Location = new System.Drawing.Point(18, 21);
+            this._addShapeButton.Margin = new System.Windows.Forms.Padding(2);
+            this._addShapeButton.Name = "_addShapeButton";
+            this._addShapeButton.Size = new System.Drawing.Size(53, 39);
+            this._addShapeButton.TabIndex = 3;
+            this._addShapeButton.Text = "新增";
+            this._addShapeButton.UseVisualStyleBackColor = true;
+            this._addShapeButton.Click += new System.EventHandler(this.ProcessAddShapeButton);
+            // 
+            // _modelInfo
+            // 
+            this._modelInfo.AllowUserToAddRows = false;
+            this._modelInfo.AllowUserToDeleteRows = false;
+            this._modelInfo.AllowUserToResizeColumns = false;
+            this._modelInfo.AllowUserToResizeRows = false;
+            this._modelInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._modelInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._modelInfo.Location = new System.Drawing.Point(0, 0);
+            this._modelInfo.Margin = new System.Windows.Forms.Padding(2);
+            this._modelInfo.Name = "_modelInfo";
+            this._modelInfo.ReadOnly = true;
+            this._modelInfo.RowHeadersVisible = false;
+            this._modelInfo.RowHeadersWidth = 51;
+            this._modelInfo.RowTemplate.Height = 24;
+            this._modelInfo.Size = new System.Drawing.Size(416, 485);
+            this._modelInfo.TabIndex = 0;
+            // 
+            // _superSplitContainer
+            // 
+            this._superSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._superSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this._superSplitContainer.IsSplitterFixed = true;
+            this._superSplitContainer.Location = new System.Drawing.Point(0, 24);
+            this._superSplitContainer.Margin = new System.Windows.Forms.Padding(2);
+            this._superSplitContainer.Name = "_superSplitContainer";
+            this._superSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // _superSplitContainer.Panel1
+            // 
+            this._superSplitContainer.Panel1.Controls.Add(this._toolStripTop);
+            // 
+            // _superSplitContainer.Panel2
+            // 
+            this._superSplitContainer.Panel2.Controls.Add(this._mainSplitContainer);
+            this._superSplitContainer.Size = new System.Drawing.Size(1184, 612);
+            this._superSplitContainer.SplitterDistance = 25;
+            this._superSplitContainer.SplitterWidth = 3;
+            this._superSplitContainer.TabIndex = 7;
+            // 
+            // _mainSplitContainer
+            // 
+            this._mainSplitContainer.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this._mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._mainSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this._mainSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this._mainSplitContainer.Margin = new System.Windows.Forms.Padding(2);
+            this._mainSplitContainer.Name = "_mainSplitContainer";
+            // 
+            // _mainSplitContainer.Panel1
+            // 
+            this._mainSplitContainer.Panel1.Controls.Add(this._slideInfo);
+            // 
+            // _mainSplitContainer.Panel2
+            // 
+            this._mainSplitContainer.Panel2.Controls.Add(this._subSplitContainer);
+            this._mainSplitContainer.Size = new System.Drawing.Size(1184, 584);
+            this._mainSplitContainer.SplitterDistance = 116;
+            this._mainSplitContainer.SplitterWidth = 3;
+            this._mainSplitContainer.TabIndex = 7;
+            // 
+            // _subSplitContainer
+            // 
+            this._subSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._subSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this._subSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this._subSplitContainer.Margin = new System.Windows.Forms.Padding(2);
+            this._subSplitContainer.Name = "_subSplitContainer";
+            // 
+            // _subSplitContainer.Panel1
+            // 
+            this._subSplitContainer.Panel1.Controls.Add(this._canvaPanelRegion);
+            // 
+            // _subSplitContainer.Panel2
+            // 
+            this._subSplitContainer.Panel2.Controls.Add(this._rightBox);
+            this._subSplitContainer.Size = new System.Drawing.Size(1065, 584);
+            this._subSplitContainer.SplitterDistance = 640;
+            this._subSplitContainer.SplitterWidth = 3;
+            this._subSplitContainer.TabIndex = 0;
+            // 
+            // _canvaRegion
+            // 
+            this._canvaPanelRegion.BackColor = System.Drawing.SystemColors.ControlLight;
+            this._canvaPanelRegion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._canvaPanelRegion.Location = new System.Drawing.Point(0, 0);
+            this._canvaPanelRegion.Margin = new System.Windows.Forms.Padding(2);
+            this._canvaPanelRegion.Name = "_canvaRegion";
+            this._canvaPanelRegion.Size = new System.Drawing.Size(640, 584);
+            this._canvaPanelRegion.TabIndex = 6;
+            // 
+            // _shapeBindingSource
             // 
             this._shapeBindingSource.DataSource = typeof(DrawingModel.Shape);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 1055);
-            this.Controls.Add(this._panel);
-            this.Controls.Add(this._slideInfo);
-            this.Controls.Add(this._rightBox);
+            this.ClientSize = new System.Drawing.Size(1184, 636);
+            this.Controls.Add(this._superSplitContainer);
             this.Controls.Add(this._menuStripTop);
-            this.Controls.Add(this._toolStripTop);
             this.MainMenuStrip = this._menuStripTop;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this._menuStripTop.ResumeLayout(false);
             this._menuStripTop.PerformLayout();
-            this._rightBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this._modelInfo)).EndInit();
-            this._slideInfo.ResumeLayout(false);
             this._toolStripTop.ResumeLayout(false);
             this._toolStripTop.PerformLayout();
+            this._rightBox.ResumeLayout(false);
+            this._rightSplitContainer.Panel1.ResumeLayout(false);
+            this._rightSplitContainer.Panel1.PerformLayout();
+            this._rightSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this._rightSplitContainer)).EndInit();
+            this._rightSplitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this._modelInfo)).EndInit();
+            this._superSplitContainer.Panel1.ResumeLayout(false);
+            this._superSplitContainer.Panel1.PerformLayout();
+            this._superSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this._superSplitContainer)).EndInit();
+            this._superSplitContainer.ResumeLayout(false);
+            this._mainSplitContainer.Panel1.ResumeLayout(false);
+            this._mainSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this._mainSplitContainer)).EndInit();
+            this._mainSplitContainer.ResumeLayout(false);
+            this._subSplitContainer.Panel1.ResumeLayout(false);
+            this._subSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this._subSplitContainer)).EndInit();
+            this._subSplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._shapeBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -273,15 +418,21 @@ namespace DrawingForm
         private System.Windows.Forms.MenuStrip _menuStripTop;
         private System.Windows.Forms.ToolStripMenuItem _menuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _aboutToolStripMenuItem;
-        private System.Windows.Forms.GroupBox _rightBox;
-        private System.Windows.Forms.DataGridView _modelInfo;
-        private System.Windows.Forms.Button _buttonAdd;
-        private System.Windows.Forms.ComboBox _shapeOption;
-        private System.Windows.Forms.FlowLayoutPanel _slideInfo;
-        private System.Windows.Forms.Button _slideButton;
         private System.Windows.Forms.BindingSource _shapeBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _nameChineseDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn _infoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.FlowLayoutPanel _slideInfo;
+        private System.Windows.Forms.GroupBox _rightBox;
+        private System.Windows.Forms.ComboBox _shapeOption;
+        private System.Windows.Forms.Button _addShapeButton;
+        private System.Windows.Forms.DataGridView _modelInfo;
+        private System.Windows.Forms.Panel _canvaPanelRegion;
+        private System.Windows.Forms.SplitContainer _superSplitContainer;
+        private System.Windows.Forms.SplitContainer _mainSplitContainer;
+        private System.Windows.Forms.SplitContainer _subSplitContainer;
+        private System.Windows.Forms.SplitContainer _rightSplitContainer;
+        private System.Windows.Forms.Button _addSlideButton;
+        private System.Windows.Forms.Button _deleteSlideButton;
+        private System.Windows.Forms.ToolStripButton _undoButton;
+        private System.Windows.Forms.ToolStripButton _redoButton;
     }
 }
 

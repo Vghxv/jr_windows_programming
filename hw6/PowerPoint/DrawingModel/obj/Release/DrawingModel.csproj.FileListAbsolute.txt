@@ -1,0 +1,9 @@
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\bin\Release\DrawingModel.exe.config
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\bin\Release\DrawingModel.exe
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\bin\Release\DrawingModel.pdb
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Release\DrawingModel.csproj.AssemblyReference.cache
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Release\DrawingModel.Properties.Resources.resources
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Release\DrawingModel.csproj.GenerateResource.cache
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Release\DrawingModel.csproj.CoreCompileInputs.cache
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Release\DrawingModel.exe
+D:\jr_windows_programming\hw6\PowerPoint\DrawingModel\obj\Release\DrawingModel.pdb
