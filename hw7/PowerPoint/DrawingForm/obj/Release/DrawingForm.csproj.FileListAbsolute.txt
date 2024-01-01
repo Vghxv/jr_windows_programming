@@ -1,0 +1,10 @@
+D:\jr_windows_programming\hw6\PowerPoint\DrawingForm\bin\Release\DrawingForm.exe.config
+D:\jr_windows_programming\hw6\PowerPoint\DrawingForm\bin\Release\DrawingForm.exe
+D:\jr_windows_programming\hw6\PowerPoint\DrawingForm\bin\Release\DrawingForm.pdb
+D:\jr_windows_programming\hw6\PowerPoint\DrawingForm\obj\Release\DrawingForm.csproj.AssemblyReference.cache
+D:\jr_windows_programming\hw6\PowerPoint\DrawingForm\obj\Release\DrawingForm.Form1.resources
+D:\jr_windows_programming\hw6\PowerPoint\DrawingForm\obj\Release\DrawingForm.Properties.Resources.resources
+D:\jr_windows_programming\hw6\PowerPoint\DrawingForm\obj\Release\DrawingForm.csproj.GenerateResource.cache
+D:\jr_windows_programming\hw6\PowerPoint\DrawingForm\obj\Release\DrawingForm.csproj.CoreCompileInputs.cache
+D:\jr_windows_programming\hw6\PowerPoint\DrawingForm\obj\Release\DrawingForm.exe
+D:\jr_windows_programming\hw6\PowerPoint\DrawingForm\obj\Release\DrawingForm.pdb

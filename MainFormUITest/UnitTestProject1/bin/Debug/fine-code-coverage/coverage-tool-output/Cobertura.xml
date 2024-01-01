@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage line-rate="0.466101694915254" branch-rate="0.0714285714285714" lines-covered="55" lines-valid="118" branches-covered="1" branches-valid="14" complexity="29" version="0" timestamp="1702589756">
+<coverage line-rate="0.427350427350427" branch-rate="0.0714285714285714" lines-covered="50" lines-valid="117" branches-covered="1" branches-valid="14" complexity="29" version="0" timestamp="1703850220">
   <sources />
   <packages>
-    <package name="UnitTestProject1" line-rate="0.466101694915254" branch-rate="0.0714285714285714" complexity="29">
+    <package name="UnitTestProject1" line-rate="0.427350427350427" branch-rate="0.0714285714285714" complexity="29">
       <classes>
         <class name="MainFormUITest.MainFormUITest1" filename="D:\jr_windows_programming\MainFormUITest\UnitTestProject1\MainFormUITest.cs" line-rate="1" branch-rate="1" complexity="4">
           <methods>
@@ -40,7 +40,6 @@
               <lines>
                 <line number="57" hits="1" branch="false" />
                 <line number="58" hits="1" branch="false" />
-                <line number="59" hits="1" branch="false" />
                 <line number="60" hits="1" branch="false" />
               </lines>
             </method>
@@ -65,11 +64,10 @@
             <line number="49" hits="1" branch="false" />
             <line number="57" hits="1" branch="false" />
             <line number="58" hits="1" branch="false" />
-            <line number="59" hits="1" branch="false" />
             <line number="60" hits="1" branch="false" />
           </lines>
         </class>
-        <class name="MainFormUITest.Robot" filename="D:\jr_windows_programming\MainFormUITest\UnitTestProject1\Robot.cs" line-rate="0.350515463917526" branch-rate="0.0714285714285714" complexity="3">
+        <class name="MainFormUITest.Robot" filename="D:\jr_windows_programming\MainFormUITest\UnitTestProject1\Robot.cs" line-rate="0.309278350515464" branch-rate="0.0714285714285714" complexity="3">
           <methods>
             <method name=".ctor" signature="(System.String,System.String)" line-rate="1" branch-rate="1" complexity="NaN">
               <lines>
@@ -183,12 +181,12 @@
                 <line number="126" hits="0" branch="false" />
               </lines>
             </method>
-            <method name="AssertText" signature="(System.String,System.String)" line-rate="1" branch-rate="1" complexity="NaN">
+            <method name="AssertText" signature="(System.String,System.String)" line-rate="0" branch-rate="1" complexity="NaN">
               <lines>
-                <line number="130" hits="1" branch="false" />
-                <line number="131" hits="1" branch="false" />
-                <line number="132" hits="1" branch="false" />
-                <line number="133" hits="1" branch="false" />
+                <line number="130" hits="0" branch="false" />
+                <line number="131" hits="0" branch="false" />
+                <line number="132" hits="0" branch="false" />
+                <line number="133" hits="0" branch="false" />
               </lines>
             </method>
             <method name="AssertDataGridViewRowDataBy" signature="(System.String,System.Int32,System.String[])" line-rate="0" branch-rate="0" complexity="NaN">
@@ -294,10 +292,10 @@
             <line number="124" hits="0" branch="false" />
             <line number="125" hits="0" branch="false" />
             <line number="126" hits="0" branch="false" />
-            <line number="130" hits="1" branch="false" />
-            <line number="131" hits="1" branch="false" />
-            <line number="132" hits="1" branch="false" />
-            <line number="133" hits="1" branch="false" />
+            <line number="130" hits="0" branch="false" />
+            <line number="131" hits="0" branch="false" />
+            <line number="132" hits="0" branch="false" />
+            <line number="133" hits="0" branch="false" />
             <line number="137" hits="0" branch="false" />
             <line number="138" hits="0" branch="false" />
             <line number="139" hits="0" branch="false" />
