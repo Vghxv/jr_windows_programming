@@ -32,7 +32,7 @@ namespace DrawingModel
         // MouseUp
         public void MouseUp(float number1, float number2)
         {
-            foreach (Shape shape in _model.Shapes.ShapeList)
+            foreach (Shape shape in _model.GetCurrentPageShapes())
             {
                 if (shape.IsInShape(number1, number2))
                 {

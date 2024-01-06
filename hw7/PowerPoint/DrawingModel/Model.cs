@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace DrawingModel
 {
@@ -9,25 +10,31 @@ namespace DrawingModel
     {
         public event ModelChangedEventHandler _modelChanged;
         public delegate void ModelChangedEventHandler(EventArgs e);
-        private Shapes _shapes;
+        public event ModelChangedEventHandler _pageChanged;
+        public delegate void PageChangedEventHandler(EventArgs e);
+        private List<Page> _pages;
+        private Page _currentPage;
         private Pair _adjustPoint;
         private bool _isCloseToAdjust;
         private ModelState _modelState;
         private CommandManager _commandManager;
+        
+        public int CurrentPageIndex
+        {
+            get
+            {
+                return _pages.IndexOf(_currentPage);
+            }
+            set {
+               _currentPage = _pages[value];
+            }
+        }
 
         public CommandManager CommandManager
         {
             get
             {
                 return _commandManager;
-            }
-        }
-
-        public virtual Shapes Shapes
-        {
-            get
-            {
-                return _shapes;
             }
         }
 
@@ -68,27 +75,34 @@ namespace DrawingModel
         }
         public Model() 
         { 
-            _shapes = new Shapes();
+            //_shapes = new Shapes();
             _modelState = new IdleState(this);
             _commandManager = new CommandManager();
+            _currentPage = new Page(_modelState);
+            _pages = new List<Page>
+            {
+                _currentPage
+            };
         }
 
         // remove shape
         public virtual void RemoveShape(Shape shape)
         {
-            _shapes.RemoveShape(shape);
+            _currentPage.RemoveShape(shape);
         }
 
         // clear shapes
         public void ClearShapes()
         {
-            _shapes.ClearShapes();
+            _currentPage.ClearShapes();
         }
 
         // set all shapes isSelected bool
         public void SetShapeSelected(bool isSelected)
         {
-            _shapes.SetAllShapeSelected(isSelected);
+            if (_currentPage == null)
+                return;
+            _currentPage.SetShapeSelected(isSelected);
         }
 
         // handle canvas pressed
@@ -118,23 +132,25 @@ namespace DrawingModel
         // add _shape by _shape
         public virtual void AddShape(Shape shape)
         {
-            _shapes.AddShape(shape);
+            _currentPage.AddShape(shape);
         }
 
         // move _shape
-        public virtual void MoveShape(Shape shape ,Pair offset)
+        public virtual void MoveShape(Shape shape, Pair offset)
         {
-            _shapes.MoveShape(shape, offset);
+            _currentPage.MoveShape(shape, offset);
+        }
+
+        // resize shape
+        public virtual void ResizeShape(Shape shape, Pair offset1, Pair offset2)
+        {
+            _currentPage.ResizeShape(shape, offset1, offset2);
         }
 
         // draw
         public void Draw(IGraphics graphics)
         {
-            foreach (Shape shape in _shapes)
-            {
-                shape.Draw(graphics);
-            }
-            _modelState.Draw(graphics);
+            _currentPage.Draw(graphics);
         }
 
         // notify _model changed 
@@ -142,6 +158,13 @@ namespace DrawingModel
         {
             if (_modelChanged != null)
                 _modelChanged(new EventArgs());
+        }
+
+        // notify page changed
+        public virtual void NotifyPageChanged()
+        {
+            if (_pageChanged != null)
+                _pageChanged(new EventArgs());
         }
 
         // closeness to adjustPoint
@@ -154,21 +177,47 @@ namespace DrawingModel
         }
 
         // generate two random pair
-        public (Pair, Pair) GenerateTwoPairs(Size size)
-        {
-            int seed = PairFactory.GetSeed(0);
-            Pair widthRange = new Pair(0, size.Width);
-            Pair heightRange = new Pair(0, size.Height);
-            Pair firstPair = PairFactory.CreateRandomPair(widthRange, heightRange, seed);
-            seed = PairFactory.GetSeed(Constant.RANDOM_SEED);
-            Pair secondPair = PairFactory.CreateRandomPair(widthRange, heightRange, seed);
-            return (firstPair, secondPair);
-        }
+        //public (Pair, Pair) GenerateTwoPairs(Size size)
+        //{
+        //    int seed = PairFactory.GetSeed(0);
+        //    Pair widthRange = new Pair(0, size.Width);
+        //    Pair heightRange = new Pair(0, size.Height);
+        //    Pair firstPair = PairFactory.CreateRandomPair(widthRange, heightRange, seed);
+        //    seed = PairFactory.GetSeed(Constant.RANDOM_SEED);
+        //    Pair secondPair = PairFactory.CreateRandomPair(widthRange, heightRange, seed);
+        //    return (firstPair, secondPair);
+        //}
 
         // resize shapes 
         public void ResizeShapes(Size original, Size target)
         {
-            _shapes.ResizeShapes(new Pair(original), new Pair(target));
+            _currentPage.ResizeShapes(original, target);
+        }
+
+        // get current page shapes
+        public BindingList<Shape> GetCurrentPageShapes()
+        {
+            return _currentPage.Shapes.ShapeList;
+        }
+
+        // handle ArrangeShapesPoints
+        public void ArrangeShapesPoints()
+        {
+            _currentPage.ArrangeShapesPoints();
+        }
+
+        // set current page by index
+        //public void SetCurrentPage(int index)
+        //{
+        //    _currentPage = _pages[index];
+        //    NotifyPageChanged();
+        //}
+        // add page
+        public void AddPageClick()
+        {
+            _currentPage = new Page(_modelState);
+            _pages.Add(_currentPage);
+            NotifyPageChanged();
         }
     }
 }

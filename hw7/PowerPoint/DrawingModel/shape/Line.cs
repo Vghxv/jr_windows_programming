@@ -36,7 +36,7 @@ namespace DrawingModel
         public override bool IsInShape(float number1, float number2)
         {
             Pair point = new Pair(number1, number2);
-            var normalPairs = GetLocation(FirstPair, SecondPair);
+            var normalPairs = GetLocation();
             Pair topLeftPair = normalPairs.Item1;
             Pair bottonRightPair = normalPairs.Item2;
             return CalculateDistance(number1, number2) < Constant.LINE_SELECT_DISTANCE && IsInBox(point, topLeftPair, bottonRightPair);

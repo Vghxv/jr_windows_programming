@@ -1,9 +1,16 @@
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace DrawingModel
 {
     public class Constant
     {
+        public static Dictionary<int, string> ModelInfoColumnName = new Dictionary<int, string>()
+        {
+            { 0, DELETE },
+            { 1, SHAPE },
+            { 2, INFO_CHINESE }
+        };
         public const string LINE_CHINESE = "線";
         public const string RECTANGLE_CHINESE = "矩形";
         public const string ELLIPSE_CHINESE = "橢圓";
@@ -15,6 +22,10 @@ namespace DrawingModel
         public const string ELLIPSE = "Ellipse";
         public const string MOUSE = "Mouse";
         public const string CANVA_PANEL = "CanvaPanel";
+        public const string SLIDE_INFO = "_slideInfo";
+        public const string MODEL_INFO = "_modelInfo";
+        public const string UNDO = "Undo";
+        public const string REDO = "Redo";
         public const string DELETE = "刪除";
         public const string SHAPE = "形狀";
         public const string INFO_CHINESE = "資訊";

@@ -93,6 +93,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Coordinates.cs" />
     <Compile Include="DoubleBufferPanelTests.cs" />
     <Compile Include="MainFormTests.cs" />
     <Compile Include="FormPresentationModelTests.cs" />

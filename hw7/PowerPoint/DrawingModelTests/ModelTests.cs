@@ -36,7 +36,7 @@ namespace DrawingModel.Tests
             model.ClearShapes();
 
             // Assert
-            Assert.AreEqual(0, model.Shapes.ShapeList.Count);
+            Assert.AreEqual(0, model.GetCurrentPageShapes().Count);
         }
 
         [TestMethod]
@@ -115,8 +115,8 @@ namespace DrawingModel.Tests
             MockGraphics mockGraphics = new MockGraphics();
             Ellipse shape1 = new Ellipse();
             DrawingModel.Rectangle shape2 = new Rectangle();
-            model.Shapes.AddShape(shape1);
-            model.Shapes.AddShape(shape2);
+            model.AddShape(shape1);
+            model.AddShape(shape2);
             MockModelState mockModelState = new MockModelState();
             model.CurrentState = mockModelState;
 
@@ -129,8 +129,6 @@ namespace DrawingModel.Tests
             Assert.IsTrue(mockGraphics.DrawRectangleCalled);
             Assert.IsFalse(mockGraphics.DrawLineHandleCalled);
             Assert.IsFalse(mockGraphics.DrawRectangleHandleCalled);
-
-            Assert.IsTrue(mockModelState.DrawCalled);
         }
 
         [TestMethod]

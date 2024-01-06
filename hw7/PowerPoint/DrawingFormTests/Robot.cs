@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using System.IO;
 using OpenQA.Selenium.Interactions;
 using System.Security.Permissions;
+using DrawingModel;
+using System.Security.Cryptography;
 
 namespace DrawingForm.Tests
 {
@@ -149,6 +151,25 @@ namespace DrawingForm.Tests
         }
 
         // test
+        public Interaction CreateMoveTo(WindowsElement windowsElement, PointerInputDevice device, int x, int y)
+        {
+            var size = windowsElement.Size;
+            return device.CreatePointerMove(windowsElement, x - (size.Width / 2), y - (size.Height / 2), TimeSpan.Zero);
+        }
+
+        // test
+        public Interaction CreatePointerDown(PointerInputDevice device, MouseButton button)
+        {
+            return device.CreatePointerDown(button);
+        }
+
+        // test
+        public Interaction CreatePointerUp(PointerInputDevice device, MouseButton button)
+        {
+            return device.CreatePointerUp(button);
+        }
+
+        // test
         public void ClickTabControl(string name)
         {
             var elements = _driver.FindElementsByName(name);
@@ -172,10 +193,11 @@ namespace DrawingForm.Tests
         }
 
         // test
-        public void ClickDataGridViewCellBy(string name, int rowIndex, string columnName)
+        public void AssertDataGridCellValue(WindowsElement windowsElement, int rowIndex, int columnIndex, string value)
         {
-            var dataGridView = _driver.FindElementByAccessibilityId(name);
-            _driver.FindElementByName($"{columnName} 資料列 {rowIndex}").Click();
+            var row = windowsElement.FindElementByName($"資料列 {rowIndex}");
+            var cell = row.FindElementByName($"儲存格 {columnIndex}");
+            Assert.AreEqual(value, cell.Text);
         }
 
         // test 
@@ -187,22 +209,35 @@ namespace DrawingForm.Tests
         }
 
         // test
-        public void AssertDataGridViewRowDataBy(string name, int rowIndex, string[] data)
+        public void AssertModelInfoCellString(WindowsElement dataGridView, int rowIndex, int columnIndex ,string data)
         {
-            var dataGridView = _driver.FindElementByAccessibilityId(name);
-            var rowDatas = dataGridView.FindElementByName($"資料列 {rowIndex}").FindElementsByXPath("//*");
-
-            // FindElementsByXPath("//*") captures the "row" node as well, hence starting from 1 to skip the "row" node.
-            for (int i = 1; i < rowDatas.Count; i++)
-            {
-                Assert.AreEqual(data[i - 1], rowDatas[i].Text.Replace("(null)", ""));
-            }
+            var text = dataGridView
+            .FindElementByName($"Row {rowIndex}")
+            .FindElementByName($"{Constant.ModelInfoColumnName[columnIndex]} Row {rowIndex}").Text;
+            Assert.AreEqual(data, text);
         }
 
-        // test
-        public void AssertDataGridViewRowCountBy(string name, int rowCount)
+        // test press delete btn in model info
+        public void PressModelInfoCell(WindowsElement dataGridView, int rowIndex, int columnIndex)
         {
-            var dataGridView = _driver.FindElementByAccessibilityId(name);
+            dataGridView
+            .FindElementByName($"Row {rowIndex}")
+            .FindElementByName($"{Constant.ModelInfoColumnName[columnIndex]} Row {rowIndex}").Click();
+        }
+
+        //public void AssertModelInfoRowCount(WindowsElement dataGridView, int rowCount)
+        //{
+        //    var rows = dataGridView.FindElementsByXPath("*[starts-with(text(), 'Row')]");
+        //    //Assert.AreEqual(rowCount);
+        //    for (int i = 0; i < rowCount; i++)
+        //    {
+        //        Assert.AreEqual($"Row {i}", rows[i].Text);
+        //    }
+        //}
+
+        // test
+        public void AssertModelInfoRowCount(WindowsElement dataGridView, int rowCount)
+        {
             Point point = new Point(dataGridView.Location.X, dataGridView.Location.Y);
             AutomationElement element = AutomationElement.FromPoint(point);
 

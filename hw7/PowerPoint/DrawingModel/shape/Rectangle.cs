@@ -26,7 +26,7 @@ namespace DrawingModel
             graphics.DrawRectangle(FirstPair, SecondPair);
             if (IsSelected)
             {
-                var normalPairs = GetLocation(FirstPair, SecondPair);
+                var normalPairs = GetLocation();
                 graphics.DrawRectangleHandle(normalPairs.Item1, normalPairs.Item2);
             }
         }

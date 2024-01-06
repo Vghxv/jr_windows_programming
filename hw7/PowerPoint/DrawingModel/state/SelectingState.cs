@@ -1,3 +1,4 @@
+using System.CodeDom;
 using System.Windows.Forms;
 namespace DrawingModel
 {
@@ -40,7 +41,7 @@ namespace DrawingModel
         // perform checks in MouseDown
         public void MouseDownCheck(float number1, float number2)
         {
-            foreach (Shape shape in _model.Shapes.ShapeList)
+            foreach (Shape shape in _model.GetCurrentPageShapes())
             {
                 if (shape.IsInShape(number1, number2))
                 {
@@ -71,7 +72,7 @@ namespace DrawingModel
         // called in MouseMove when mouse is pressed on adjust
         public void AdjustShapes(float number1, float number2)
         {
-            foreach (Shape shape in _model.Shapes.ShapeList)
+            foreach (Shape shape in _model.GetCurrentPageShapes())
             {
                 if (shape.IsSelected)
                 {
@@ -88,7 +89,7 @@ namespace DrawingModel
         // called in MouseMove when mouse is pressed on selected
         public void MoveShapes(float number1, float number2)
         {
-            foreach (Shape shape in _model.Shapes.ShapeList)
+            foreach (Shape shape in _model.GetCurrentPageShapes())
             {
                 if (shape.IsSelected)
                 {
@@ -123,9 +124,15 @@ namespace DrawingModel
         // MouseUp
         public void MouseUp(float number1, float number2)
         {
-            foreach (Shape shape in _model.Shapes.ShapeList)
+            foreach (Shape shape in _model.GetCurrentPageShapes())
             {
-                if (shape.IsSelected)
+                if (_isMousePressedOnAdjust)
+                {
+                    var location = shape.GetLocation();
+                    _model.CommandManager.Execute(new ResizeCommand(_model, shape, location.Item1 - shape.FirstPair, location.Item2 - _startPair));
+                    break;
+                }
+                else if (_isMousePressedOnSelected)
                 {
                     _model.CommandManager.Execute(new MoveCommand(_model, shape, new Pair(number1, number2) - _startPair));
                     break;
@@ -134,7 +141,7 @@ namespace DrawingModel
             _isMousePressedOnSelected = false;
             _isMousePressedOnAdjust = false;
             _model.IsCloseToAdjust = _model.IsCloseToAdjustPoint(number1, number2);
-            _model.Shapes.ArrangeShapesPoints();
+            _model.ArrangeShapesPoints();
             _model.NotifyModelChanged();
         }
 
@@ -148,7 +155,7 @@ namespace DrawingModel
         {
             if (keyCode == Keys.Delete)
             {
-                foreach (Shape shape in _model.Shapes.ShapeList)
+                foreach (Shape shape in _model.GetCurrentPageShapes())
                 {
                     if (shape.IsSelected)
                     {

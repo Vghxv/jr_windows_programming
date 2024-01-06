@@ -15,7 +15,7 @@ namespace DrawingModel.Tests
             Rectangle shape = new Rectangle(new Pair(0, 0), new Pair(3, 8)); // Replace with the actual shape you are using
 
             // Add the shape to the model
-            model.Shapes.AddShape(shape);
+            model.AddShape(shape);
 
             // Act
             idleState.MouseUp(1, 1);
@@ -34,7 +34,7 @@ namespace DrawingModel.Tests
             Rectangle shape = new Rectangle(new Pair(50, 50), new Pair(80, 100));
 
             // Add the shape to the model
-            model.Shapes.AddShape(shape);
+            model.AddShape(shape);
 
             // Act
             idleState.MouseUp(1, 1);

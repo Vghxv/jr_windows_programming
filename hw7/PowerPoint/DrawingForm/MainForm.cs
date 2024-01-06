@@ -20,7 +20,7 @@ namespace DrawingForm
         {
             get
             {
-                return BindingContext[_model.Shapes.ShapeList];
+                return BindingContext[_model.GetCurrentPageShapes()];
             }
         }
 
@@ -31,15 +31,15 @@ namespace DrawingForm
             _presentationModel = presentationModel;
             _model = presentationModel.Model;
             _model._modelChanged += HandleModelChanged;
+            _model._pageChanged += HandlePageChanged;
             _toolStripButtonLine.DataBindings.Add(Constant.CHECKED, _presentationModel, Constant.IS_LINE_ENABLE);
             _toolStripButtonRectangle.DataBindings.Add(Constant.CHECKED, _presentationModel, Constant.IS_RECTANGLE_ENABLE);
             _toolStripButtonEllipse.DataBindings.Add(Constant.CHECKED, _presentationModel, Constant.IS_ELLIPSE_ENABLE);
             _toolStripButtonIdle.DataBindings.Add(Constant.CHECKED, _presentationModel, Constant.IS_IDLE_ENABLE);
-            _modelInfo.DataSource = _model.Shapes.ShapeList;
+            _modelInfo.DataSource = _model.GetCurrentPageShapes();
             KeyPreview = true;
             KeyDown += HandleKeyDown;
             Resize += HandleResizeForm;
-            //Load += LoadForm;
             _mainSplitContainer.SplitterMoved += MoveLeftSplitter;
             _subSplitContainer.SplitterMoved += MoveRightSplitter;
             InitializeCanvas();
@@ -56,7 +56,7 @@ namespace DrawingForm
             _doubleBufferPanel.BackColor = SystemColors.ControlLightLight;
             _doubleBufferPanel.Size = new Size(Constant.CANVA_PANEL_WIDTH, Constant.CANVA_PANEL_HEIGHT);
             _doubleBufferPanel.Location = new Point((_canvaPanelRegion.Height - _doubleBufferPanel.Height) >> 1, 0);
-            //_doubleBufferPanel.Margin = new Padding(Constant.CANVA_PANEL_MARGIN);
+            _doubleBufferPanel.Margin = new Padding(Constant.CANVA_PANEL_MARGIN);
             _doubleBufferPanel.MouseDown += HandleCanvasPressed;
             _doubleBufferPanel.MouseUp += HandleCanvasReleased;
             _doubleBufferPanel.MouseMove += HandleCanvasMoved;
@@ -96,12 +96,6 @@ namespace DrawingForm
             Invalidate(true);
         }
 
-        // load form
-        //public void LoadForm(object sender, EventArgs e)
-        //{
-            
-        //}
-
         // init model info
         public void InitializeModelInfo()
         {
@@ -131,9 +125,15 @@ namespace DrawingForm
         public void DrawCanvaPanelToButton()
         {
             _brief = new Bitmap(_doubleBufferPanel.Width, _doubleBufferPanel.Height);
-            Button button = (Button)_slideInfo.Controls[0];
+            Button button = (Button)_slideInfo.Controls[_model.CurrentPageIndex];
             _doubleBufferPanel.DrawToBitmap(_brief, new System.Drawing.Rectangle(0, 0, _doubleBufferPanel.Width, _doubleBufferPanel.Height));
             button.Image = new Bitmap(_brief, button.Size);
+        }
+
+        // handle page changed
+        public void HandlePageChanged(EventArgs e)
+        {
+            _presentationModel.HandlePageChanged(_slideInfo);
         }
 
         // handle canvas pressed
@@ -215,9 +215,9 @@ namespace DrawingForm
         }
 
         // handle add slide button clicked
-        public void AddSlideButtonClick(object sender, EventArgs e)
+        public void AddPageClick(object sender, EventArgs e)
         {
-            _presentationModel.AddSlideButton(_slideInfo);
+            _presentationModel.AddPageClick();
         }
 
         // handle delete all button clicked

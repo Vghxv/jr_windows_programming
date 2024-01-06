@@ -271,7 +271,7 @@ namespace DrawingForm.Tests
             Line shape = new Line();
             model.AddShape(shape);
             _presentationModel.ModelInfoCellClick(0, 0);
-            Assert.AreEqual(0, model.Shapes.ShapeList.Count);
+            Assert.AreEqual(0, model.GetCurrentPageShapes().Count);
         }
 
         [TestMethod]
@@ -282,7 +282,7 @@ namespace DrawingForm.Tests
             Line shape = new Line();
             model.AddShape(shape);
             _presentationModel.ModelInfoCellClick(0, 1);
-            Assert.AreEqual(1, model.Shapes.ShapeList.Count);
+            Assert.AreEqual(1, model.GetCurrentPageShapes().Count);
         }
 
 

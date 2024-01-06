@@ -1,3 +1,4 @@
+using DrawingModel;
 using System;
 using System.Windows.Forms;
 
@@ -15,6 +16,9 @@ namespace DrawingForm
         private TextBox _textBox4;
         private Button _okBtn;
         private Button _cancelBtn;
+        private Pair _widthValidRange;
+        private Label _canvaSize;
+        private Pair _heightValidRange;
 
         public string Input1
         {
@@ -48,11 +52,40 @@ namespace DrawingForm
             }
         }
 
-        public CoordinateForm()
+        public CoordinateForm(Pair widthValidRange, Pair heightValidRange)
         {
+            _widthValidRange = widthValidRange;
+            _heightValidRange = heightValidRange;
             InitializeComponent();
-            this.MinimizeBox = false;
-            this.MaximizeBox = false;
+            MinimizeBox = false;
+            MaximizeBox = false;
+            _canvaSize.Text = "Canva Size: " + widthValidRange.Number2 + ", " + heightValidRange.Number2;
+            _textBox1.TextChanged += TextBox_TextChanged;
+            _textBox2.TextChanged += TextBox_TextChanged;
+            _textBox3.TextChanged += TextBox_TextChanged;
+            _textBox4.TextChanged += TextBox_TextChanged;
+
+            _okBtn.Enabled = false;
+        }
+
+        private void TextBox_TextChanged(object sender, EventArgs e)
+        {
+            bool allTextBoxesValid = IsNumericInRange(_textBox1.Text, _widthValidRange) &&
+                                     IsNumericInRange(_textBox2.Text, _heightValidRange) &&
+                                     IsNumericInRange(_textBox3.Text, _widthValidRange) &&
+                                     IsNumericInRange(_textBox4.Text, _heightValidRange);
+
+            _okBtn.Enabled = allTextBoxesValid;
+        }
+
+        private bool IsNumericInRange(string text, Pair validRange)
+        {
+            if (int.TryParse(text, out int value))
+            {
+                return value >= validRange.Number1 && value <= validRange.Number2;
+            }
+
+            return false;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -80,34 +113,35 @@ namespace DrawingForm
             this._label4 = new System.Windows.Forms.Label();
             this._okBtn = new System.Windows.Forms.Button();
             this._cancelBtn = new System.Windows.Forms.Button();
+            this._canvaSize = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // _textBox1
             // 
             this._textBox1.Location = new System.Drawing.Point(71, 84);
             this._textBox1.Name = "_textBox1";
-            this._textBox1.Size = new System.Drawing.Size(100, 22);
+            this._textBox1.Size = new System.Drawing.Size(100, 20);
             this._textBox1.TabIndex = 0;
             // 
             // _textBox2
             // 
             this._textBox2.Location = new System.Drawing.Point(248, 84);
             this._textBox2.Name = "_textBox2";
-            this._textBox2.Size = new System.Drawing.Size(100, 22);
+            this._textBox2.Size = new System.Drawing.Size(100, 20);
             this._textBox2.TabIndex = 1;
             // 
             // _textBox3
             // 
             this._textBox3.Location = new System.Drawing.Point(71, 154);
             this._textBox3.Name = "_textBox3";
-            this._textBox3.Size = new System.Drawing.Size(100, 22);
+            this._textBox3.Size = new System.Drawing.Size(100, 20);
             this._textBox3.TabIndex = 2;
             // 
             // _textBox4
             // 
             this._textBox4.Location = new System.Drawing.Point(248, 154);
             this._textBox4.Name = "_textBox4";
-            this._textBox4.Size = new System.Drawing.Size(100, 22);
+            this._textBox4.Size = new System.Drawing.Size(100, 20);
             this._textBox4.TabIndex = 3;
             // 
             // _label1
@@ -115,7 +149,7 @@ namespace DrawingForm
             this._label1.AutoSize = true;
             this._label1.Location = new System.Drawing.Point(68, 65);
             this._label1.Name = "_label1";
-            this._label1.Size = new System.Drawing.Size(90, 16);
+            this._label1.Size = new System.Drawing.Size(74, 13);
             this._label1.TabIndex = 4;
             this._label1.Text = "左上角座標X";
             // 
@@ -124,7 +158,7 @@ namespace DrawingForm
             this._label2.AutoSize = true;
             this._label2.Location = new System.Drawing.Point(245, 65);
             this._label2.Name = "_label2";
-            this._label2.Size = new System.Drawing.Size(91, 16);
+            this._label2.Size = new System.Drawing.Size(74, 13);
             this._label2.TabIndex = 5;
             this._label2.Text = "左上角座標Y";
             // 
@@ -133,7 +167,7 @@ namespace DrawingForm
             this._label3.AutoSize = true;
             this._label3.Location = new System.Drawing.Point(68, 135);
             this._label3.Name = "_label3";
-            this._label3.Size = new System.Drawing.Size(90, 16);
+            this._label3.Size = new System.Drawing.Size(74, 13);
             this._label3.TabIndex = 6;
             this._label3.Text = "右下角座標X";
             // 
@@ -142,7 +176,7 @@ namespace DrawingForm
             this._label4.AutoSize = true;
             this._label4.Location = new System.Drawing.Point(245, 135);
             this._label4.Name = "_label4";
-            this._label4.Size = new System.Drawing.Size(91, 16);
+            this._label4.Size = new System.Drawing.Size(74, 13);
             this._label4.TabIndex = 7;
             this._label4.Text = "右下角座標Y";
             // 
@@ -166,9 +200,19 @@ namespace DrawingForm
             this._cancelBtn.UseVisualStyleBackColor = true;
             this._cancelBtn.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // _canvaSize
+            // 
+            this._canvaSize.AutoSize = true;
+            this._canvaSize.Location = new System.Drawing.Point(62, 13);
+            this._canvaSize.Name = "_canvaSize";
+            this._canvaSize.Size = new System.Drawing.Size(57, 13);
+            this._canvaSize.TabIndex = 10;
+            this._canvaSize.Text = "canva info";
+            // 
             // CoordinateForm
             // 
             this.ClientSize = new System.Drawing.Size(418, 282);
+            this.Controls.Add(this._canvaSize);
             this.Controls.Add(this._cancelBtn);
             this.Controls.Add(this._okBtn);
             this.Controls.Add(this._label4);

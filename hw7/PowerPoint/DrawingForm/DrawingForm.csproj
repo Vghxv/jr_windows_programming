@@ -93,8 +93,14 @@
     <Compile Include="..\DrawingModel\command\MoveCommand.cs">
       <Link>model\MoveCommand.cs</Link>
     </Compile>
+    <Compile Include="..\DrawingModel\command\ResizeCommand.cs">
+      <Link>model\ResizeCommand.cs</Link>
+    </Compile>
     <Compile Include="..\DrawingModel\Model.cs">
       <Link>model\Model.cs</Link>
+    </Compile>
+    <Compile Include="..\DrawingModel\page\Page.cs">
+      <Link>model\Page.cs</Link>
     </Compile>
     <Compile Include="..\DrawingModel\shape\Ellipse.cs">
       <Link>model\Ellipse.cs</Link>
@@ -114,16 +120,16 @@
     <Compile Include="..\DrawingModel\shape\Shapes.cs">
       <Link>model\Shapes.cs</Link>
     </Compile>
-    <Compile Include="..\DrawingModel\states\DrawingState.cs">
+    <Compile Include="..\DrawingModel\state\DrawingState.cs">
       <Link>model\DrawingState.cs</Link>
     </Compile>
-    <Compile Include="..\DrawingModel\states\IdleState.cs">
+    <Compile Include="..\DrawingModel\state\IdleState.cs">
       <Link>model\IdleState.cs</Link>
     </Compile>
-    <Compile Include="..\DrawingModel\states\ModelState.cs">
+    <Compile Include="..\DrawingModel\state\ModelState.cs">
       <Link>model\ModelState.cs</Link>
     </Compile>
-    <Compile Include="..\DrawingModel\states\SelectingState.cs">
+    <Compile Include="..\DrawingModel\state\SelectingState.cs">
       <Link>model\SelectingState.cs</Link>
     </Compile>
     <Compile Include="..\DrawingModel\utils\Constant.cs">

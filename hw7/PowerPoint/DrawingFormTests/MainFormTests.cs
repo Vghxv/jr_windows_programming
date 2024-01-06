@@ -19,15 +19,10 @@ namespace DrawingForm.Tests
     public class MainFormTests
     {
         private static Robot _robot;
-
-        private static ActionBuilder _actionBuilder;
-        private static PointerInputDevice _pointerInputDevice;
-
         private WindowsElement _canvasPanel;
         private WindowsElement _slideInfo;
         private WindowsElement _modelInfo;
 
-        private readonly string CANVA_PANEL = "canvasPanel";
         // init
         [ClassInitialize()]
         public static void Initialize(TestContext context)
@@ -47,10 +42,9 @@ namespace DrawingForm.Tests
         {
             if (_robot.IsAppClosed())
                 _robot.LaunchApp();
-            _actionBuilder = new ActionBuilder();
-            _pointerInputDevice = new PointerInputDevice(PointerKind.Pen);
             _canvasPanel = _robot.FindElementByAccessibilityId(Constant.CANVA_PANEL);
-            //Assert.AreEqual(_canvasPanel.Size,ToString(), "Custom");
+            _slideInfo = _robot.FindElementByAccessibilityId(Constant.SLIDE_INFO);
+            _modelInfo = _robot.FindElementByAccessibilityId(Constant.MODEL_INFO);
         }
 
         [TestCleanup()]
@@ -59,58 +53,68 @@ namespace DrawingForm.Tests
             _robot.CloseApp();
         }
 
-        // toolStripButtons
-        [TestMethod()]
-        public void TestDrawButtons()
+        public void DrawShape(string shapeName,Coordinates coordinates)
         {
-            //_robot.ClickButton(Constant.LINE);
-            //_robot.AssertButtonState(Constant.LINE, true);
-            //_robot.AssertButtonState(Constant.RECTANGLE, false);
-            //_robot.AssertButtonState(Constant.ELLIPSE, false);
-            //_robot.ClickButton(Constant.RECTANGLE);
-            //_robot.AssertButtonState(Constant.LINE, false);
-            //_robot.AssertButtonState(Constant.RECTANGLE, true);
-            //_robot.AssertButtonState(Constant.ELLIPSE, false);
-            //_robot.ClickButton(Constant.ELLIPSE);
-            //_robot.AssertButtonState(Constant.LINE, false);
-            //_robot.AssertButtonState(Constant.RECTANGLE, false);
-            //_robot.AssertButtonState(Constant.ELLIPSE, true);
-            //_robot.ClickButton(Constant.MOUSE);
-            //_robot.AssertButtonState(Constant.MOUSE, true);
-            //_robot.AssertButtonState(Constant.LINE, false);
-            //_robot.AssertButtonState(Constant.RECTANGLE, false);
-            //_robot.AssertButtonState(Constant.ELLIPSE, false);
-        }
-
-        public Interaction CreateMoveTo(WindowsElement windowsElement, PointerInputDevice device, int x, int y)
-        {
-            var size = windowsElement.Size;
-            return device.CreatePointerMove(windowsElement, x - (size.Width / 2), y - (size.Height / 2), TimeSpan.Zero);
-        }
-
-        public Interaction CreatePointerDown(PointerInputDevice device, MouseButton button)
-        {
-            return device.CreatePointerDown(button);
-        }
-
-        public Interaction CreatePointerUp(PointerInputDevice device, MouseButton button)
-        {
-            return device.CreatePointerUp(button);
+            ActionBuilder actionBuilder = new ActionBuilder();
+            PointerInputDevice pointerInputDevice = new PointerInputDevice(PointerKind.Pen);
+            _robot.ClickButton(shapeName);
+            actionBuilder
+            .AddActions(_robot.CreatePointerUp(pointerInputDevice, MouseButton.Left))
+            .AddActions(_robot.CreateMoveTo(_canvasPanel, pointerInputDevice, (int)coordinates.x1, (int)coordinates.y1))
+            .AddActions(_robot.CreatePointerDown(pointerInputDevice, MouseButton.Left))
+            .AddActions(_robot.CreateMoveTo(_canvasPanel, pointerInputDevice, (int)coordinates.x2, (int)coordinates.y2))
+            .AddActions(_robot.CreatePointerUp(pointerInputDevice, MouseButton.Left));
+            _robot.PerformAction(actionBuilder.ToActionSequenceList());
         }
 
         [TestMethod()]
-        public void TestDrawButtons1()
+        public void TestDrawShapes()
         {
-            _robot.ClickButton(Constant.LINE);
-            float x = 1.25f;
-            _actionBuilder
-            .AddActions(CreateMoveTo(_canvasPanel, _pointerInputDevice, (int)(100 * x), (int)(100 * x)))
-            //.AddActions(CreateMoveTo(_canvasPanel, _pointerInputDevice, 100, 100))
-            .AddActions(CreatePointerDown(_pointerInputDevice, MouseButton.Left))
-            .AddActions(CreateMoveTo(_canvasPanel, _pointerInputDevice, 200, 200))
-            .AddActions(CreatePointerUp(_pointerInputDevice, MouseButton.Left));
-            _robot.PerformAction(_actionBuilder.ToActionSequenceList());
-            _robot.Sleep(5);
+            List<Coordinates> coordinates_list = new List<Coordinates>
+            {
+                new Coordinates(100, 100, 200, 200),
+                new Coordinates(300, 300, 400, 400),
+                new Coordinates(100, 500, 200, 600)
+            };
+            List<string> strings = new List<string>
+            {
+                Constant.LINE,
+                Constant.RECTANGLE,
+                Constant.ELLIPSE
+            };
+            for (int i = 0; i < coordinates_list.Count; i++)
+            {
+                DrawShape(strings[i], coordinates_list[i]);
+                _robot.AssertModelInfoCellString(_modelInfo, i, 2, coordinates_list[i].FormatToString());
+            }
+        }
+
+        [TestMethod()]
+        public void TestRedoUndo()
+        {
+            List<Coordinates> coordinates_list = new List<Coordinates>
+            {
+                new Coordinates(100, 100, 200, 200),
+                new Coordinates(300, 300, 400, 400),
+                new Coordinates(100, 500, 200, 600)
+            };
+            foreach (Coordinates coordinates in coordinates_list)
+            {
+                DrawShape(Constant.RECTANGLE, coordinates);
+            }
+            _robot.ClickButton(Constant.UNDO);
+            _robot.ClickButton(Constant.UNDO);
+            _robot.ClickButton(Constant.UNDO);
+            _robot.ClickButton(Constant.REDO);
+            _robot.ClickButton(Constant.REDO);
+            _robot.ClickButton(Constant.REDO);
+            _robot.ClickButton(Constant.UNDO);
+            _robot.AssertModelInfoRowCount(_modelInfo, 2);
+            coordinates_list.RemoveAt(2);
+            for (int i = 0; i < 2; i++)
+            {
+                _robot.AssertModelInfoCellString(_modelInfo, i, 2, coordinates_list[i].FormatToString());
+            }
         }
     }
 }

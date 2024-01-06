@@ -116,6 +116,13 @@ namespace DrawingModel
             _secondPair += offset;
         }
 
+        // resize
+        public virtual void Move(Pair offset1, Pair offset2)
+        {
+            _firstPair += offset1;  
+            _secondPair += offset2;
+        }
+
         // is in _shape
         public virtual bool IsInShape(float number1, float number2)
         {
@@ -125,16 +132,16 @@ namespace DrawingModel
         // arrange points to top left and bottom right
         public virtual void ArrangePairs()
         {
-            var pairs = GetLocation(FirstPair, SecondPair);
+            var pairs = GetLocation();
             FirstPair = pairs.Item1;
             SecondPair = pairs.Item2;
         }
 
         // get location
-        public virtual (Pair, Pair) GetLocation(Pair pair1, Pair pair2)
+        public virtual (Pair, Pair) GetLocation()
         {
-            Pair newPair1 = new Pair(Math.Min(pair1.Number1, pair2.Number1), Math.Min(pair1.Number2, pair2.Number2));
-            Pair newPair2 = new Pair(Math.Max(pair1.Number1, pair2.Number1), Math.Max(pair1.Number2, pair2.Number2));
+            Pair newPair1 = new Pair(Math.Min(FirstPair.Number1, SecondPair.Number1), Math.Min(FirstPair.Number2, SecondPair.Number2));
+            Pair newPair2 = new Pair(Math.Max(FirstPair.Number1, SecondPair.Number1), Math.Max(FirstPair.Number2, SecondPair.Number2));
             return (newPair1, newPair2);
         }
 

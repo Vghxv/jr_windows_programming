@@ -12,6 +12,10 @@ namespace DrawingForm
         public event PropertyChangedEventHandler PropertyChanged;
         private Model _model;
         private DoubleBufferedPanel _doubleBufferPanel;
+        public int CurrentSlideIndex
+        {
+            get; set;
+        }
         public bool IsLineEnable
         {
             get; set;
@@ -79,6 +83,12 @@ namespace DrawingForm
             }
         }
 
+        // handle page changed
+        public void HandlePageChanged(FlowLayoutPanel slideInfo)
+        {
+            AddSlideButton(slideInfo);
+        }
+
         // hangle change cursor
         public void HandleStateChanged()
         {
@@ -101,7 +111,7 @@ namespace DrawingForm
         {
             if (index == 0)
             {
-                _model.CommandManager.Execute(new DeleteCommand(_model, _model.Shapes.ShapeList[position]));
+                _model.CommandManager.Execute(new DeleteCommand(_model, _model.GetCurrentPageShapes()[position]));
                 _model.NotifyModelChanged();
             }
         }
@@ -163,31 +173,30 @@ namespace DrawingForm
                 MessageBox.Show("choose shape first!");
                 return;
             }
-            using (var newDialog = new CoordinateForm())
+            using (var newDialog = new CoordinateForm(new Pair(0, size.Width), new Pair(0, size.Height)))
             {
                 newDialog.StartPosition = FormStartPosition.CenterParent;
                 var result = newDialog.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    //var pairs = _model.GenerateTwoPairs(size);
-                    if(
+                    if (
                         float.TryParse(newDialog.Input1, out float floatValue1) &&
                         float.TryParse(newDialog.Input2, out float floatValue2) &&
                         float.TryParse(newDialog.Input3, out float floatValue3) &&
                         float.TryParse(newDialog.Input4, out float floatValue4))
                     {
-                        Shape shape = ShapeFactory.CreateShape(shapeToAdd, new Pair(floatValue1, floatValue2), 
+                        Shape shape = ShapeFactory.CreateShape(shapeToAdd, new Pair(floatValue1, floatValue2),
                             new Pair(floatValue3, floatValue4));
                         _model.CommandManager.Execute(new AddCommand(_model, shape));
                         _model.NotifyModelChanged();
                     }
-                    else
-                    {
-                        MessageBox.Show("Please enter valid numbers");
-                    }
                 }
                 else if (result == DialogResult.Cancel)
                 {
+                }
+                else
+                {
+                    MessageBox.Show("something wrong!");
                 }
             }
         }
@@ -247,15 +256,31 @@ namespace DrawingForm
         {
             int targetWidth = slideInfo.Width - Constant.SPLITTER_OFFSET;
             int targetHeight = targetWidth / Constant.ASPECT_RATIO_X * Constant.ASPECT_RATIO_Y;
+            
             Button slideButton = new Button();
+            slideButton.Click += HandleSlideButtonClicked;
             slideButton.BackColor = SystemColors.ControlLightLight;
             slideButton.Location = new Point(0, 0);
             slideButton.Margin = new Padding(Constant.SLIDE_BUTTON_MARGIN);
-            slideButton.Name = Constant.SLIDE_BUTTON;
+            slideButton.Name = $"{Constant.SLIDE_BUTTON}{_model.CurrentPageIndex}";
             slideButton.Size = new Size(targetWidth, targetHeight);
-            slideButton.TabIndex = 0;
             slideButton.UseVisualStyleBackColor = false;
             slideInfo.Controls.Add(slideButton);
+        }
+
+        // handle slide button clicked
+        public void HandleSlideButtonClicked(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            int index = int.Parse(button.Name.Substring(Constant.SLIDE_BUTTON.Length));
+            _model.CurrentPageIndex = index;
+            _model.NotifyModelChanged();
+        }
+
+        // add page click
+        public void AddPageClick()
+        {
+            _model.AddPageClick();
         }
 
         // delete slide button

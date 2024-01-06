@@ -12,15 +12,15 @@ namespace DrawingModel.Tests
             Model model = new Model();
             Rectangle rectangle = new Rectangle(new Pair(0, 0), new Pair(50, 160));
             Line line = new Line(new Pair(200, 200), new Pair(400, 500));
-            model.Shapes.AddShape(line);
-            model.Shapes.AddShape(rectangle);
+            model.AddShape(line);
+            model.AddShape(rectangle);
             return model;
         }
 
         // Helper method to get the selected _rectangle
         private Shape GetSelectedShape(Model model)
         {
-            foreach (Shape shape in model.Shapes.ShapeList)
+            foreach (Shape shape in model.GetCurrentPageShapes())
             {
                 if (shape.IsSelected)
                 {
@@ -41,7 +41,7 @@ namespace DrawingModel.Tests
             selectingState.MouseDown(1, 1);
 
             // Assert
-            Assert.IsTrue(model.Shapes.ShapeList[1].IsSelected);
+            Assert.IsTrue(model.GetCurrentPageShapes()[1].IsSelected);
             Assert.IsTrue(selectingState.IsMousePressedOnSelected);
         }
 
@@ -56,7 +56,7 @@ namespace DrawingModel.Tests
             selectingState.MouseDown(100, 100);
 
             // Assert
-            Assert.IsFalse(model.Shapes.ShapeList[0].IsSelected);
+            Assert.IsFalse(model.GetCurrentPageShapes()[0].IsSelected);
             Assert.IsFalse(selectingState.IsMousePressedOnSelected);
             Assert.IsInstanceOfType(model.CurrentState, typeof(IdleState), "State should be changed to IdleState.");
         }
@@ -74,7 +74,7 @@ namespace DrawingModel.Tests
 
             // Assert
             Shape selectedShape = null;
-            foreach (Shape shape in model.Shapes.ShapeList)
+            foreach (Shape shape in model.GetCurrentPageShapes())
             {
                 if (shape.IsSelected)
                 {
@@ -96,7 +96,7 @@ namespace DrawingModel.Tests
             // Arrange
             Model model = CreateModelWithShapes();
             SelectingState selectingState = new SelectingState(model);
-            Shape shape = model.Shapes.ShapeList[0];
+            Shape shape = model.GetCurrentPageShapes()[0];
             shape.IsSelected = true;
             model.AdjustPoint = shape.SecondPair;
 
@@ -117,7 +117,7 @@ namespace DrawingModel.Tests
             // Arrange
             Model model = CreateModelWithShapes();
             SelectingState selectingState = new SelectingState(model);
-            Rectangle rectangle = (Rectangle)model.Shapes.ShapeList[1];
+            Rectangle rectangle = (Rectangle)model.GetCurrentPageShapes()[1];
             selectingState.MouseDown(29, 78); // Simulate pressing on a _rectangle
             selectingState.IsMousePressedOnAdjust = true;
 
@@ -146,7 +146,7 @@ namespace DrawingModel.Tests
             // Arrange
             Model model = CreateModelWithShapes();
             SelectingState selectingState = new SelectingState(model);
-            Rectangle rectangle = (Rectangle)model.Shapes.ShapeList[1];
+            Rectangle rectangle = (Rectangle)model.GetCurrentPageShapes()[1];
             selectingState.MouseDownCheck(5, 5); // Simulate pressing on a _rectangle
             selectingState.IsMousePressedOnAdjust = true;
 
@@ -164,14 +164,14 @@ namespace DrawingModel.Tests
             // Arrange
             Model model = CreateModelWithShapes();
             SelectingState selectingState = new SelectingState(model);
-            Rectangle rectangle = (Rectangle)model.Shapes.ShapeList[1];
+            Rectangle rectangle = (Rectangle)model.GetCurrentPageShapes()[1];
             rectangle.IsSelected = true;
 
             // Act
             selectingState.KeyPressed(Keys.Delete);
 
             // Assert
-            Assert.AreEqual(1, model.Shapes.ShapeList.Count, "The selected shape should be removed.");
+            Assert.AreEqual(1, model.GetCurrentPageShapes().Count, "The selected shape should be removed.");
         }
 
         [TestMethod]
@@ -180,14 +180,14 @@ namespace DrawingModel.Tests
             // Arrange
             Model model = CreateModelWithShapes();
             SelectingState selectingState = new SelectingState(model);
-            Rectangle shape = (Rectangle)model.Shapes.ShapeList[1];
+            Rectangle shape = (Rectangle)model.GetCurrentPageShapes()[1];
             shape.IsSelected = true;
 
             // Act
             selectingState.KeyPressed(Keys.A); // A key is not Delete
 
             // Assert
-            Assert.AreEqual(2, model.Shapes.ShapeList.Count, "The shape should not be removed.");
+            Assert.AreEqual(2, model.GetCurrentPageShapes().Count, "The shape should not be removed.");
         }
 
         [TestMethod]

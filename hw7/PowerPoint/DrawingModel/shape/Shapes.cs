@@ -85,5 +85,18 @@ namespace DrawingModel
                 }
             }
         }
+
+        // resize shape
+        public virtual void ResizeShape(Shape targetShape, Pair offset1, Pair offset2)
+        {
+            foreach (Shape shape in ShapeList)
+            {
+                if (shape == targetShape)
+                {
+                    shape.Move(new Pair(offset1), new Pair(offset2));
+                    return;
+                }
+            }
+        }
     }
 }
